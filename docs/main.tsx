@@ -1,15 +1,7 @@
 import React, { useState, useRef } from 'react';
 import ReactDOM from 'react-dom/client';
 
-import {
-  LanguageOutlined,
-  DataObjectOutlined,
-  TitleOutlined,
-  FileUploadOutlined,
-  Code as CodeIcon,
-  Email as EmailIcon,
-} from '@mui/icons-material';
-import { Box, SpeedDial, SpeedDialAction, SpeedDialIcon, Button } from '@mui/material';
+import { Box, Button } from '@mui/material';
 
 import EmailBuilder, { EmailBuilderRef } from '../src/EmailBuilder';
 import HtmlEditor from '../src/HtmlEditor';
@@ -224,7 +216,6 @@ async function exampleVideoUploadHandler(file: File): Promise<string> {
 const Home = () => {
   const [language, setLanguage] = useState<Language>('en');
   const [showJsonFeatures, setShowJsonFeatures] = useState(true);
-  const [speedDialOpen, setSpeedDialOpen] = useState(false);
   const [showSamplesDrawerTitle, setShowSamplesDrawerTitle] = useState(true);
   const [initialDocument, setInitialDocument] = useState<TEditorConfiguration | undefined>(undefined);
   const [editorMode, setEditorMode] = useState<'email' | 'html'>('email');
@@ -297,45 +288,6 @@ const Home = () => {
             language={language}
           />
         )}
-        <SpeedDial
-          ariaLabel="测试功能"
-          sx={{ position: 'fixed', bottom: 16, left: 16, zIndex: 1000 }}
-          icon={<SpeedDialIcon />}
-          onClose={() => setSpeedDialOpen(false)}
-          onOpen={() => setSpeedDialOpen(true)}
-          open={speedDialOpen}
-        >
-          <SpeedDialAction
-            key="language"
-            icon={<LanguageOutlined />}
-            tooltipTitle={`切换语言: ${language === 'en' ? '中文' : 'English'}`}
-            onClick={handleToggleLanguage}
-          />
-          <SpeedDialAction
-            key="json"
-            icon={<DataObjectOutlined />}
-            tooltipTitle={`JSON功能: ${showJsonFeatures ? '显示' : '隐藏'}`}
-            onClick={handleToggleJsonFeatures}
-          />
-          <SpeedDialAction
-            key="samplesDrawerTitle"
-            icon={<TitleOutlined />}
-            tooltipTitle={`左侧边栏标题: ${showSamplesDrawerTitle ? '显示' : '隐藏'}`}
-            onClick={handleToggleSamplesDrawerTitle}
-          />
-          <SpeedDialAction
-            key="loadTestJSON"
-            icon={<FileUploadOutlined />}
-            tooltipTitle="加载测试 JSON"
-            onClick={handleLoadTestJSON}
-          />
-          <SpeedDialAction
-            key="toggleEditor"
-            icon={editorMode === 'email' ? <CodeIcon /> : <EmailIcon />}
-            tooltipTitle={`切换到: ${editorMode === 'email' ? 'HTML 编辑器' : '邮件编辑器'}`}
-            onClick={handleToggleEditorMode}
-          />
-        </SpeedDial>
       </Box>
     </React.StrictMode>
   );

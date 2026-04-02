@@ -1910,7 +1910,7 @@ export default function EditorChildrenIds({ childrenIds, onChange, containerId, 
         );
       })}
       {!isInsideColumn && (
-        <Box component="span" sx={{ flex: 'none', alignSelf: 'flex-start' }}>
+        <Box component="span" sx={{ display: 'block', width: '100%' }}>
           <AddBlockButton onSelect={appendBlock} disableContainerBlocks={isContainerOrColumnsContainer} containerType={containerType} />
         </Box>
       )}

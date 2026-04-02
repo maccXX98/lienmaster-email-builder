@@ -71,20 +71,18 @@ export default function App() {
       <SamplesDrawer />
 
       {/* 中间：主内容区域 */}
-      <main>
-        <Stack
-          sx={{
-            flex: 1,
-            minWidth: 0, // 允许 flex 项目收缩到内容以下
-            transition: `${marginLeftTransition}, ${marginRightTransition}`,
-            position: 'relative',
-            overflow: 'hidden',
-            zIndex: 0,
-          }}
-        >
-          <TemplatePanel />
-        </Stack>
-      </main>
+      <Stack
+        sx={{
+          flex: 1,
+          minWidth: 0, // 允许 flex 项目收缩到内容以下
+          transition: `${marginLeftTransition}, ${marginRightTransition}`,
+          position: 'relative',
+          overflow: 'hidden',
+          zIndex: 0,
+        }}
+      >
+        <TemplatePanel />
+      </Stack>
 
       {/* 右侧：样式和检查抽屉 */}
       <InspectorDrawer />
