@@ -15,11 +15,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/heiheihoho1213/monto-email-builder"
+    "url": "https://github.com/maccXX98/lienmaster-email-builder.git"
   },
-  "homepage": "https://heiheihoho1213.github.io/monto-email-builder/",
+  "homepage": "https://maccXX98.github.io/lienmaster-email-builder/",
   "bugs": {
-    "url": "https://github.com/heiheihoho1213/monto-email-builder/issues"
+    "url": "https://github.com/maccXX98/lienmaster-email-builder/issues"
   },
   "type": "module",
   "main": "./dist/index.js",
@@ -46,7 +46,8 @@
     "build:lib": "vite build --mode library && tsc --emitDeclarationOnly",
     "copy:frontend": "node scripts/copy-to-frontend.js",
     "build:all": "pnpm run build:lib && pnpm run copy:frontend",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "prepare": "pnpm run build:lib"
   },
   "peerDependencies": {
     "@emotion/react": "^11.11.0",
