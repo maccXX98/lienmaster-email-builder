@@ -1,0 +1,550 @@
+import React, { useState, useEffect, useRef, useMemo } from 'react';
+import CodeMirror from '@uiw/react-codemirror';
+import { html } from '@codemirror/lang-html';
+import {
+  xcodeLight,
+  vscodeLight,
+  tokyoNightDay,
+  gruvboxLight,
+  noctisLilac,
+  bbedit,
+
+  abcdef,
+  basicDark,
+  dracula,
+  tomorrowNightBlue,
+  xcodeDark
+} from '@uiw/codemirror-themes-all';
+import {
+  Box,
+  ToggleButton,
+  ToggleButtonGroup,
+  Tooltip,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
+  SxProps,
+  Theme,
+  ListSubheader,
+  useTheme,
+} from '@mui/material';
+import { alpha } from '@mui/material/styles';
+import {
+  Code as CodeIcon,
+  Visibility as VisibilityIcon,
+  ViewColumn as ViewColumnIcon,
+  MonitorOutlined, PhoneIphoneOutlined
+} from '@mui/icons-material';
+import { Language, t } from '../i18n';
+
+export type HtmlEditorMode = 'split' | 'code' | 'preview';
+export type HtmlEditorDevice = 'desktop' | 'mobile';
+
+// 主题映射表
+const themeMap: Record<string, any> = {
+  // 浅色主题
+  xcodeLight,
+  vscodeLight,
+  tokyoNightDay,
+  gruvboxLight,
+  noctisLilac,
+  bbedit,
+  // 深色主题
+  abcdef,
+  basicDark,
+  dracula,
+  tomorrowNightBlue,
+  xcodeDark
+};
+
+// 主题显示名称（按类型分组）
+const lightThemeNames: Record<string, string> = {
+  xcodeLight: 'Xcode Light (Light)',
+  vscodeLight: 'VSCode Light (Light)',
+  tokyoNightDay: 'Tokyo Night Day (Light)',
+  gruvboxLight: 'Gruvbox Light (Light)',
+  noctisLilac: 'Noctis Lilac (Light)',
+  bbedit: 'BBEdit (Light)',
+};
+
+const darkThemeNames: Record<string, string> = {
+  abcdef: 'ABCDEF (Dark)',
+  basicDark: 'Basic Dark (Dark)',
+  dracula: 'Dracula (Dark)',
+  tomorrowNightBlue: 'Tomorrow Night Blue (Dark)',
+  xcodeDark: 'Xcode Dark (Dark)',
+};
+
+const HTML_EDITOR_THEME_STORAGE_KEY = 'html-editor-theme';
+const DEFAULT_THEME = 'dracula';
+
+function getStoredTheme(fallback: string = DEFAULT_THEME): string {
+  const validFallback = fallback && themeMap[fallback] ? fallback : DEFAULT_THEME;
+  if (typeof window === 'undefined') return validFallback;
+  try {
+    const stored = localStorage.getItem(HTML_EDITOR_THEME_STORAGE_KEY);
+    if (stored && themeMap[stored]) return stored;
+  } catch {
+    // ignore
+    console.error('Failed to get HTML Editor stored theme');
+  }
+  return validFallback;
+}
+
+function setStoredTheme(theme: string): void {
+  try {
+    localStorage.setItem(HTML_EDITOR_THEME_STORAGE_KEY, theme);
+  } catch {
+    console.error('Failed to set HTML Editor stored theme', theme);
+    // ignore
+  }
+}
+
+export interface HtmlEditorProps {
+  /**
+   * HTML 代码内容
+   */
+  value: string;
+  /**
+   * 代码变化回调
+   */
+  onChange?: (value: string) => void;
+  /**
+   * 语言设置，可选值：'zh' | 'en'
+   * @default 'en'
+   */
+  language?: Language;
+  /**
+   * 初始显示模式：split（左右栏）、code（仅代码）、preview（仅预览）
+   * @default 'split'
+   */
+  initialMode?: HtmlEditorMode;
+  /**
+   * 初始设备模式：desktop（桌面）、mobile（移动）
+   * @default 'desktop'
+   */
+  initialDevice?: HtmlEditorDevice;
+  /**
+   * 代码编辑器高度
+   * @default '100%'
+   */
+  codeEditorHeight?: string;
+  /**
+   * 预览区域高度
+   * @default '100%'
+   */
+  previewHeight?: string;
+  /**
+   * 自定义样式
+   */
+  sx?: SxProps<Theme>;
+  /**
+   * 是否显示工具栏
+   * @default true
+   */
+  showToolbar?: boolean;
+  /**
+   * 初始代码编辑器主题（themeMap 中的 key）
+   * 若本地已有 localStorage 则优先用 localStorage；未传时默认 'dracula'
+   */
+  initialTheme?: string;
+}
+
+export default function HtmlEditor({
+  value,
+  onChange,
+  language = 'en',
+  initialMode = 'split',
+  initialDevice = 'desktop',
+  codeEditorHeight = '100%',
+  previewHeight = '100%',
+  sx,
+  showToolbar = true,
+  initialTheme,
+}: HtmlEditorProps) {
+  // 翻译函数
+  const translate = (key: string, params?: Record<string, string | number>): string => {
+    return t(key, params, language);
+  };
+  const [mode, setMode] = useState<HtmlEditorMode>(initialMode);
+  const [device, setDevice] = useState<HtmlEditorDevice>(initialDevice);
+  const [theme, setTheme] = useState<string>(() => getStoredTheme(initialTheme));
+  const [internalValue, setInternalValue] = useState(value);
+  const debounceTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // iframe ref 必须在组件顶层声明，不能在 renderPreview 函数内部
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+
+  // 同步外部 value 变化
+  useEffect(() => {
+    if (value !== internalValue) {
+      setInternalValue(value);
+    }
+  }, [value]);
+
+  // 防抖处理 onChange
+  const handleChangeDebounced = (newValue: string) => {
+    setInternalValue(newValue);
+    if (debounceTimeoutRef.current) {
+      clearTimeout(debounceTimeoutRef.current);
+    }
+    debounceTimeoutRef.current = setTimeout(() => {
+      onChange?.(newValue);
+    }, 300);
+  };
+
+  // 清理防抖定时器
+  useEffect(() => {
+    return () => {
+      if (debounceTimeoutRef.current) {
+        clearTimeout(debounceTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  // 处理 HTML 内容，补全结构并移除危险标签
+  const processHtml = (html: string): string => {
+    const sanitizedHtml = html || '';
+
+    // 检查是否需要补全 HTML 文档结构
+    let completeHtml = sanitizedHtml;
+    if (!sanitizedHtml.trim()) {
+      completeHtml = '<!DOCTYPE html><html><head></head><body></body></html>';
+    } else {
+      // 使用 DOMParser 检查并补全
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(sanitizedHtml, 'text/html');
+
+      const hasHtml = doc.documentElement?.tagName.toLowerCase() === 'html';
+      const hasHead = doc.head?.tagName.toLowerCase() === 'head';
+      const hasBody = doc.body?.tagName.toLowerCase() === 'body';
+
+      if (!hasHtml || !hasHead || !hasBody) {
+        // 需要补全，提取内容并包装
+        const bodyContent = doc.body ? doc.body.innerHTML : sanitizedHtml;
+        const headContent = doc.head ? doc.head.innerHTML : '';
+        completeHtml = `<!DOCTYPE html><html><head>${headContent}</head><body>${bodyContent}</body></html>`;
+      } else {
+        completeHtml = `<!DOCTYPE html>${doc.documentElement.outerHTML}`;
+      }
+    }
+
+    // 移除危险标签
+    const dangerousTags = ['script', 'iframe', 'object', 'embed', 'canvas'];
+    const tempParser = new DOMParser();
+    const tempDoc = tempParser.parseFromString(completeHtml, 'text/html');
+    dangerousTags.forEach((tagName) => {
+      const elements = tempDoc.querySelectorAll(tagName);
+      elements.forEach((el) => el.remove());
+    });
+    completeHtml = `<!DOCTYPE html>${tempDoc.documentElement.outerHTML}`;
+
+    return completeHtml;
+  };
+
+  // 使用 useMemo 缓存处理后的 HTML，避免每次渲染都重新计算
+  const processedHtml = useMemo(() => processHtml(internalValue), [internalValue]);
+
+  // 当 HTML 内容变化时，更新 iframe 内容（必须在组件顶层，不能在 renderPreview 内部）
+  useEffect(() => {
+    if (iframeRef.current) {
+      // 只在内容真正变化时才更新，避免重复设置相同的值
+      if (iframeRef.current.srcdoc !== processedHtml) {
+        iframeRef.current.srcdoc = processedHtml;
+      }
+    }
+  }, [processedHtml]);
+
+  const handleModeChange = (_: React.MouseEvent<HTMLElement>, newMode: HtmlEditorMode | null) => {
+    if (newMode !== null) {
+      setMode(newMode);
+    }
+  };
+
+  const handleDeviceChange = (_: React.MouseEvent<HTMLElement>, newDevice: HtmlEditorDevice | null) => {
+    if (newDevice === 'desktop' || newDevice === 'mobile') setDevice(newDevice);
+  };
+
+  const hostTheme = useTheme();
+  const deviceValue = device === 'desktop' || device === 'mobile' ? device : 'desktop';
+  const modeValue = mode === 'split' || mode === 'code' || mode === 'preview' ? mode : 'split';
+  const selectedSx: SxProps<Theme> = {
+    backgroundColor: hostTheme.palette?.action?.selected ?? 'rgba(25, 118, 210, 0.12)',
+    color: hostTheme.palette?.primary?.main ?? '#1976d2',
+    '&:hover': { backgroundColor: hostTheme.palette?.action?.selected ?? 'rgba(25, 118, 210, 0.12)' },
+  };
+  const toggleButtonBaseSx: SxProps<Theme> = {
+    backgroundColor: hostTheme.palette?.background?.paper ?? '#fff',
+    color: hostTheme.palette?.text?.primary ?? '#1F1F21',
+    '&:hover': {
+      backgroundColor: hostTheme.palette?.action?.hover ?? 'rgba(0, 0, 0, 0.04)',
+    },
+  };
+
+  // 与 theme.ts MuiTooltip 一致，显式 slotProps 避免与邮件编辑器 Tooltip 样式不一致（同 ThemeProvider 下仍可能因注入顺序等不同）
+  const tooltipSlotProps = {
+    tooltip: {
+      sx: {
+        fontSize: '11px',
+        fontWeight: 300,
+        backgroundColor: alpha(hostTheme.palette?.text?.primary ?? '#1F1F21', 0.9),
+        color: hostTheme.palette?.common?.white ?? '#fff',
+      },
+    },
+    arrow: {
+      sx: { color: alpha(hostTheme.palette?.text?.primary ?? '#1F1F21', 0.9) },
+    },
+  };
+
+  // 渲染代码编辑器（高度由父级 flex 约束，避免 100vh 导致溢出；minHeight: 0 让 flex 子项可收缩）
+  const renderCodeEditor = () => (
+    <Box
+      sx={{
+        height: codeEditorHeight,
+        minHeight: 0,
+        display: 'flex',
+        flexDirection: 'column',
+        borderRight: mode === 'split' ? '1px solid' : 'none',
+        borderColor: 'divider',
+      }}
+    >
+      <Box
+        sx={{
+          flex: 1,
+          minHeight: 0,
+          overflow: 'hidden',
+          display: 'flex',
+          flexDirection: 'column',
+          '& .cm-editor': {
+            fontSize: '14px',
+          },
+          '& .cm-scroller': {
+            fontFamily: 'monospace',
+          },
+          '& .cm-theme': {
+            height: '100%',
+          },
+          // 自定义光标样式，使其更粗、更显眼
+          '& .cm-cursor': {
+            borderLeftWidth: '2px !important',
+            borderLeftStyle: 'solid !important',
+            marginLeft: '-1px', // 补偿增加的宽度，保持位置居中
+          },
+          '& .cm-focused .cm-cursor': {
+            borderLeftWidth: '2px !important',
+            borderLeftStyle: 'solid !important',
+            opacity: 1,
+          },
+        }}
+      >
+        <CodeMirror
+          value={internalValue}
+          height="100%"
+          extensions={[html()]}
+          theme={themeMap[theme] || dracula}
+          onChange={handleChangeDebounced}
+          basicSetup={{
+            lineNumbers: true,
+            foldGutter: true,
+            dropCursor: true,
+            allowMultipleSelections: true,
+          }}
+        />
+      </Box>
+    </Box>
+  );
+
+  // 渲染预览
+  const renderPreview = () => {
+    const previewSx: SxProps<Theme> = {
+      height: previewHeight,
+      overflow: 'auto',
+      backgroundColor: '#F5F5F5',
+      padding: device === 'mobile' ? '32px 16px' : '16px',
+      display: 'flex',
+      justifyContent: 'center',
+    };
+
+    return (
+      <Box sx={previewSx}>
+        <Box
+          sx={{
+            width: '100%',
+            maxWidth: device === 'mobile' ? '370px' : '100%',
+            height: device === 'mobile' ? '800px' : '100%',
+            border: 'none',
+            overflow: 'hidden',
+          }}
+        >
+          <iframe
+            ref={iframeRef}
+            srcDoc={processedHtml}
+            style={{
+              width: '100%',
+              height: '100%',
+              border: 'none',
+              backgroundColor: '#FFFFFF',
+            }}
+            title="HTML Preview"
+            sandbox="allow-same-origin"
+          />
+        </Box>
+      </Box>
+    );
+  };
+
+  return (
+    <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          height: '100%',
+          width: '100%',
+          minHeight: 0,
+          minWidth: 0,
+          ...sx,
+        }}
+      >
+        {showToolbar && (
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            padding: '8px 16px',
+            borderBottom: '1px solid',
+            borderColor: 'divider',
+            backgroundColor: 'background.paper',
+          }}
+        >
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+            <ToggleButtonGroup
+              value={modeValue}
+              exclusive
+              onChange={handleModeChange}
+              size="small"
+              aria-label={translate('htmlEditor.mode.split')}
+            >
+              <Tooltip title={translate('htmlEditor.tooltips.splitView')} arrow slotProps={tooltipSlotProps}>
+                <ToggleButton
+                  value="split"
+                  aria-label={translate('htmlEditor.mode.split')}
+                  // sx={[toggleButtonBaseSx, ...(modeValue === 'split' ? [selectedSx] : [])]}
+                >
+                  <ViewColumnIcon fontSize="small" />
+                </ToggleButton>
+              </Tooltip>
+              <Tooltip title={translate('htmlEditor.tooltips.codeOnly')} arrow slotProps={tooltipSlotProps}>
+                <ToggleButton
+                  value="code"
+                  aria-label={translate('htmlEditor.mode.code')}
+                  // sx={[toggleButtonBaseSx, ...(modeValue === 'code' ? [selectedSx] : [])]}
+                >
+                  <CodeIcon fontSize="small" />
+                </ToggleButton>
+              </Tooltip>
+              <Tooltip title={translate('htmlEditor.tooltips.previewOnly')} arrow slotProps={tooltipSlotProps}>
+                <ToggleButton
+                  value="preview"
+                  aria-label={translate('htmlEditor.mode.preview')}
+                  // sx={[toggleButtonBaseSx, ...(modeValue === 'preview' ? [selectedSx] : [])]}
+                >
+                  <VisibilityIcon fontSize="small" />
+                </ToggleButton>
+              </Tooltip>
+            </ToggleButtonGroup>
+            <FormControl size="small" sx={{ minWidth: 140 }}>
+              <InputLabel id="theme-select-label">{translate('htmlEditor.theme')}</InputLabel>
+              <Select
+                labelId="theme-select-label"
+                id="theme-select"
+                value={theme}
+                label={translate('htmlEditor.theme')}
+                onChange={(e) => {
+                  const next = e.target.value;
+                  setTheme(next);
+                  console.log('theme changed to', next);
+                  setStoredTheme(next);
+                }}
+                sx={{
+                  // fontSize: '0.875rem',
+                  '& .MuiSelect-select': {
+                    py: 0.5,
+                  },
+                }}
+              >
+                <ListSubheader>{translate('htmlEditor.lightThemes')}</ListSubheader>
+                {Object.entries(lightThemeNames).map(([key, name]) => (
+                  <MenuItem key={key} value={key}>
+                    {name}
+                  </MenuItem>
+                ))}
+                <ListSubheader>{translate('htmlEditor.darkThemes')}</ListSubheader>
+                {Object.entries(darkThemeNames).map(([key, name]) => (
+                  <MenuItem key={key} value={key}>
+                    {name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Box>
+
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+            {mode !== 'code' && (
+              <ToggleButtonGroup
+                value={deviceValue}
+                exclusive
+                onChange={handleDeviceChange}
+                size="small"
+                aria-label={translate('htmlEditor.device.desktop')}
+              >
+                <Tooltip title={translate('htmlEditor.tooltips.desktopView')} arrow slotProps={tooltipSlotProps}>
+                  <ToggleButton
+                    value="desktop"
+                    aria-label={translate('htmlEditor.device.desktop')}
+                    // sx={[toggleButtonBaseSx, ...(deviceValue === 'desktop' ? [selectedSx] : [])]}
+                  >
+                    <MonitorOutlined fontSize="small" />
+                  </ToggleButton>
+                </Tooltip>
+                <Tooltip title={translate('htmlEditor.tooltips.mobileView')} arrow slotProps={tooltipSlotProps}>
+                  <ToggleButton
+                    value="mobile"
+                    aria-label={translate('htmlEditor.device.mobile')}
+                    // sx={[toggleButtonBaseSx, ...(deviceValue === 'mobile' ? [selectedSx] : [])]}
+                  >
+                    <PhoneIphoneOutlined fontSize="small" />
+                  </ToggleButton>
+                </Tooltip>
+              </ToggleButtonGroup>
+            )}
+          </Box>
+        </Box>
+      )}
+
+      <Box
+        sx={{
+          flex: 1,
+          minHeight: 0,
+          minWidth: 0,
+          display: 'flex',
+          overflow: 'hidden',
+        }}
+      >
+        {mode === 'split' && (
+          <>
+            <Box sx={{ flex: 1, minHeight: 0, minWidth: 0, overflow: 'hidden' }}>{renderCodeEditor()}</Box>
+            <Box sx={{ flex: 1, minHeight: 0, minWidth: 0, overflow: 'hidden' }}>{renderPreview()}</Box>
+          </>
+        )}
+        {mode === 'code' && (
+          <Box sx={{ flex: 1, minHeight: 0, minWidth: 0, overflow: 'hidden' }}>{renderCodeEditor()}</Box>
+        )}
+        {mode === 'preview' && (
+          <Box sx={{ flex: 1, minHeight: 0, minWidth: 0, overflow: 'hidden' }}>{renderPreview()}</Box>
+        )}
+      </Box>
+      </Box>
+  );
+}
