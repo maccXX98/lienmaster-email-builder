@@ -28,16 +28,14 @@ export default function SaveButton() {
 
   return (
     <Tooltip title={t('common.save')} arrow>
-      <span>
-        <IconButton
-          color='primary'
-          onClick={handleSave}
-          disabled={saving || !saveHandler}
-        >
-          {saving ? <CircularProgress size={16} /> : <SaveOutlined fontSize="small" />}
-          {/* {saving ? t('common.saving') : t('common.save')} */}
-        </IconButton>
-      </span>
+      <IconButton
+        color='primary'
+        onClick={handleSave}
+        disabled={saving || !saveHandler}
+        aria-label={t('common.save')}
+      >
+        {saving ? <CircularProgress size={16} /> : <SaveOutlined fontSize="small" />}
+      </IconButton>
     </Tooltip>
   );
 }

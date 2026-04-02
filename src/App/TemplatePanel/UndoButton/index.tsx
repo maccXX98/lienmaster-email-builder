@@ -12,11 +12,9 @@ export default function UndoButton() {
 
   return (
     <Tooltip title={t('common.undoTooltip')} arrow>
-      <span>
-        <IconButton onClick={undo} disabled={!canUndo} size="small">
-          <UndoOutlined fontSize="small" />
-        </IconButton>
-      </span>
+      <IconButton onClick={undo} disabled={!canUndo} size="small" aria-label={t('common.undoTooltip')}>
+        <UndoOutlined fontSize="small" />
+      </IconButton>
     </Tooltip>
   );
 }

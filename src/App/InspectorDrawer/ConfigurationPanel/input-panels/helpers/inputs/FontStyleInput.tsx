@@ -26,8 +26,8 @@ export default function FontStyleInput({ label, defaultValue, onChange }: Props)
         onChange(fontStyle);
       }}
     >
-      <ToggleButton value="normal">{t('style.normal')}</ToggleButton>
-      <ToggleButton value="italic">{t('style.italic')}</ToggleButton>
+      <ToggleButton value="normal" aria-label={t("style.normal")}>{t('style.normal')}</ToggleButton>
+      <ToggleButton value="italic" aria-label={t("style.italic")}>{t('style.italic')}</ToggleButton>
     </RadioGroupInput>
   );
 }

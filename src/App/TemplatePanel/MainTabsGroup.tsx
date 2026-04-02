@@ -27,6 +27,7 @@ export default function MainTabsGroup() {
     <Tabs value={selectedMainTab} onChange={handleChange}>
       <Tab
         value="editor"
+        aria-label={t('tabs.edit')}
         label={
           <Tooltip title={t('tabs.edit')} arrow>
             <EditOutlined fontSize="small" />
@@ -35,6 +36,7 @@ export default function MainTabsGroup() {
       />
       <Tab
         value="preview"
+        aria-label={t('tabs.preview')}
         label={
           <Tooltip title={t('tabs.preview')} arrow>
             <PreviewOutlined fontSize="small" />
@@ -43,6 +45,7 @@ export default function MainTabsGroup() {
       />
       <Tab
         value="html"
+        aria-label={t('tabs.htmlOutput')}
         label={
           <Tooltip title={t('tabs.htmlOutput')} arrow>
             <CodeOutlined fontSize="small" />
@@ -52,6 +55,7 @@ export default function MainTabsGroup() {
       {showJsonFeatures && (
         <Tab
           value="json"
+          aria-label={t('tabs.jsonOutput')}
           label={
             <Tooltip title={t('tabs.jsonOutput')} arrow>
               <DataObjectOutlined fontSize="small" />

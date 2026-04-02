@@ -413,6 +413,7 @@ export default function SocialsSidebarPanel({ data, setData }: SocialsSidebarPan
                         e.stopPropagation();
                         handleHandlerMouseDown();
                       }}
+                      aria-label="Drag social block"
                     >
                       <DragIndicator fontSize="small" />
                     </IconButton>
@@ -437,6 +438,7 @@ export default function SocialsSidebarPanel({ data, setData }: SocialsSidebarPan
                       onClick={() => deleteSocial(index)}
                       sx={{ color: 'error.main' }}
                       onMouseDown={(e) => e.stopPropagation()}
+                      aria-label="Delete social"
                     >
                       <DeleteOutline fontSize="small" />
                     </IconButton>

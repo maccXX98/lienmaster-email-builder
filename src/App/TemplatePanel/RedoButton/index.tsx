@@ -12,11 +12,9 @@ export default function RedoButton() {
 
   return (
     <Tooltip title={t('common.redoTooltip')} arrow>
-      <span>
-        <IconButton onClick={redo} disabled={!canRedo} size="small">
-          <RedoOutlined fontSize="small" />
-        </IconButton>
-      </span>
+      <IconButton onClick={redo} disabled={!canRedo} size="small" aria-label={t('common.redoTooltip')}>
+        <RedoOutlined fontSize="small" />
+      </IconButton>
     </Tooltip>
   );
 }

@@ -56,6 +56,7 @@ export default function DividerButton({ buttonElement, onClick }: Props) {
           ev.stopPropagation();
           onClick();
         }}
+        aria-label="Add block"
       >
         <AddOutlined fontSize="small" />
       </IconButton>

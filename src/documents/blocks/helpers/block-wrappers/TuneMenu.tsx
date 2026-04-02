@@ -411,14 +411,14 @@ export default function TuneMenu({ blockId }: Props) {
       <Stack>
         {canMove.canMoveUp && (
           <Tooltip title="Move up" placement="left" arrow>
-            <IconButton onClick={() => handleMoveClick('up')} sx={{ color: 'text.primary' }}>
+            <IconButton onClick={() => handleMoveClick('up')} sx={{ color: 'text.primary' }} aria-label="Move up">
               <ArrowUpwardOutlined fontSize="small" />
             </IconButton>
           </Tooltip>
         )}
         {canMove.canMoveDown && (
           <Tooltip title="Move down" placement="left" arrow>
-            <IconButton onClick={() => handleMoveClick('down')} sx={{ color: 'text.primary' }}>
+            <IconButton onClick={() => handleMoveClick('down')} sx={{ color: 'text.primary' }} aria-label="Move down">
               <ArrowDownwardOutlined fontSize="small" />
             </IconButton>
           </Tooltip>
@@ -430,13 +430,13 @@ export default function TuneMenu({ blockId }: Props) {
 
         {blockId !== 'root' && (
           <Tooltip title="Duplicate" placement="left" arrow>
-            <IconButton onClick={handleDuplicateClick} sx={{ color: 'text.primary' }}>
+            <IconButton onClick={handleDuplicateClick} sx={{ color: 'text.primary' }} aria-label="Duplicate">
               <ContentCopyOutlined sx={{ fontSize: '16px' }} />
             </IconButton>
           </Tooltip>
         )}
         <Tooltip title="Delete" placement="left" arrow>
-          <IconButton onClick={handleDeleteClick} sx={{ color: 'text.primary' }}>
+          <IconButton onClick={handleDeleteClick} sx={{ color: 'text.primary' }} aria-label="Delete">
             <DeleteOutlined color="error" fontSize="small" />
           </IconButton>
         </Tooltip>

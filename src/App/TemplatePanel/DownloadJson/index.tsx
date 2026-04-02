@@ -14,7 +14,7 @@ export default function DownloadJson() {
   }, [doc]);
   return (
     <Tooltip title={t('common.downloadJson')} arrow>
-      <IconButton href={href} download="emailTemplate.json">
+      <IconButton href={href} download="emailTemplate.json" aria-label={t('common.downloadJson')}>
         <FileDownloadOutlined fontSize="small" />
       </IconButton>
     </Tooltip>

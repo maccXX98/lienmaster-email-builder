@@ -16,15 +16,17 @@ type SliderInputProps = {
 
   defaultValue: number;
   onChange: (v: number) => void;
+  ariaLabel?: string;
 };
 
-export default function SliderInput({ label, defaultValue, onChange, ...props }: SliderInputProps) {
+export default function SliderInput({ label, defaultValue, onChange, ariaLabel, ...props }: SliderInputProps) {
   const [value, setValue] = useState(defaultValue);
   return (
     <Stack spacing={1} alignItems="flex-start">
       <InputLabel shrink>{label}</InputLabel>
       <RawSliderInput
         value={value}
+        ariaLabel={ariaLabel ?? label}
         setValue={(value: number) => {
           setValue(value);
           onChange(value);

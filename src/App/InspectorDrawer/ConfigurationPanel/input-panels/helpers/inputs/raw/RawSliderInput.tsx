@@ -2,7 +2,7 @@ import React, { type JSX } from 'react';
 
 import { Box, Slider, Stack, Typography } from '@mui/material';
 
-type SliderInputProps = {
+type RawSliderInputProps = {
   iconLabel: JSX.Element;
 
   step?: number;
@@ -13,15 +13,17 @@ type SliderInputProps = {
 
   value: number;
   setValue: (v: number) => void;
+  ariaLabel?: string;
 };
 
-export default function RawSliderInput({ iconLabel, value, setValue, units, ...props }: SliderInputProps) {
+export default function RawSliderInput({ iconLabel, value, setValue, units, ariaLabel, ...props }: RawSliderInputProps) {
   return (
     <Stack direction="row" alignItems="center" spacing={2} justifyContent="space-between" width="100%">
       <Box sx={{ minWidth: 24, lineHeight: 1, flexShrink: 0 }}>{iconLabel}</Box>
       <Slider
         {...props}
         value={value}
+        aria-label={ariaLabel}
         onChange={(_, value: unknown) => {
           if (typeof value !== 'number') {
             throw new Error('RawSliderInput values can only receive numeric values');

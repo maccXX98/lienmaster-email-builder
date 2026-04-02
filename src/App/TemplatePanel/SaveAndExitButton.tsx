@@ -34,16 +34,15 @@ export default function SaveAndExitButton() {
 
   return (
     <Tooltip title={t('common.saveAndExit')} arrow>
-      <span>
-        <IconButton
-          color='primary'
-          size="small"
-          onClick={handleSaveAndExit}
-          disabled={saving || !saveAndExitHandler}
-        >
-          {saving ? <CircularProgress size={16} color="inherit" /> : <ExitToAppOutlined fontSize="small" />}
-        </IconButton>
-      </span>
+      <IconButton
+        color='primary'
+        size="small"
+        onClick={handleSaveAndExit}
+        disabled={saving || !saveAndExitHandler}
+        aria-label={t('common.saveAndExit')}
+      >
+        {saving ? <CircularProgress size={16} color="inherit" /> : <ExitToAppOutlined fontSize="small" />}
+      </IconButton>
     </Tooltip>
   );
 }

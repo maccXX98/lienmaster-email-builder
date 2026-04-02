@@ -26,7 +26,7 @@ export default function LanguageSwitcher() {
 
   return (
     <>
-      <IconButton onClick={handleClick} size="small" sx={{ color: 'text.secondary' }}>
+      <IconButton onClick={handleClick} size="small" sx={{ color: 'text.secondary' }} aria-label="Language">
         <LanguageOutlined fontSize="small" />
       </IconButton>
       <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>

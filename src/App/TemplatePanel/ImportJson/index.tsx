@@ -18,7 +18,7 @@ export default function ImportJson() {
   return (
     <>
       <Tooltip title={t('common.importJson')} arrow>
-        <IconButton onClick={() => setOpen(true)}>
+        <IconButton onClick={() => setOpen(true)} aria-label={t('common.importJson')}>
           <FileUploadOutlined fontSize="small" />
         </IconButton>
       </Tooltip>

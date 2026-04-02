@@ -9,6 +9,7 @@ type Props = {
 export default function PlaceholderButton({ onClick }: Props) {
   return (
     <ButtonBase
+      aria-label="Add block"
       onClick={(ev) => {
         ev.stopPropagation();
         onClick();

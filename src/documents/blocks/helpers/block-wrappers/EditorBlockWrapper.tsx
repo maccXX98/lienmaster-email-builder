@@ -170,6 +170,7 @@ export default function EditorBlockWrapper({ children }: TEditorBlockWrapperProp
             e.stopPropagation();
             e.preventDefault();
           }}
+          aria-label="Drag block"
           sx={{
             position: 'absolute',
             top: '50%',

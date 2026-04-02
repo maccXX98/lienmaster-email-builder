@@ -13,13 +13,13 @@ export default function ToggleInspectorPanelButton() {
   };
   if (inspectorDrawerOpen) {
     return (
-      <IconButton onClick={handleClick}>
+      <IconButton onClick={handleClick} aria-label="Close inspector panel">
         <LastPageOutlined fontSize="small" />
       </IconButton>
     );
   }
   return (
-    <IconButton onClick={handleClick}>
+    <IconButton onClick={handleClick} aria-label="Open inspector panel">
       <AppRegistrationOutlined fontSize="small" />
     </IconButton>
   );
