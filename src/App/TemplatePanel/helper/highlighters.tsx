@@ -199,7 +199,7 @@ function formatJson(value: string): string {
   }
 }
 
-export async function html(value: string): Promise<React.ReactElement> {
+export async function html(value: string): Promise<React.ReactElement<any>> {
   await loadSyntaxHighlighter();
   const formattedValue = formatHtml(value);
 
@@ -226,7 +226,7 @@ export async function html(value: string): Promise<React.ReactElement> {
   );
 }
 
-export async function json(value: string): Promise<React.ReactElement> {
+export async function json(value: string): Promise<React.ReactElement<any>> {
   await loadSyntaxHighlighter();
   const formattedValue = formatJson(value);
 

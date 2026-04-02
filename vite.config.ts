@@ -19,9 +19,9 @@ export default defineConfig(({ mode }) => {
           entry: resolve(__dirname, 'src/index.ts'),
           name: 'EmailBuilder',
           fileName: 'index',
-          formats: ['en'],
+          formats: ['es'],
         },
-        rollupOptions: {
+        rolldownOptions: {
           external: (id) => {
             // 明确列出需要外部化的依赖（优先匹配）
             const explicitExternals = [
@@ -79,10 +79,7 @@ export default defineConfig(({ mode }) => {
             },
           },
         },
-        minify: 'esbuild',
-        esbuild: {
-          drop: ['console', 'debugger'],
-        },
+        minify: false,
         cssCodeSplit: true,
         chunkSizeWarningLimit: 1000,
       },

@@ -7,7 +7,7 @@ type TextEditorPanelProps = {
   value: string;
 };
 export default function HighlightedCodePanel({ type, value }: TextEditorPanelProps) {
-  const [code, setCode] = useState<React.ReactElement | null>(null);
+  const [code, setCode] = useState<React.ReactElement<any> | null>(null);
 
   useEffect(() => {
     switch (type) {

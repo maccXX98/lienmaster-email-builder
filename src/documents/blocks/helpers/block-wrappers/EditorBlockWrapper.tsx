@@ -1,4 +1,4 @@
-import React, { CSSProperties, useState, useRef, useEffect } from 'react';
+import React, { CSSProperties, useState, useRef, useEffect, type JSX } from 'react';
 
 import { Box, IconButton } from '@mui/material';
 import { DragIndicator } from '@mui/icons-material';
