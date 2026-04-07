@@ -1,0 +1,1 @@
+{"version":3,"file":"LeftPanelSlotContext.d.ts","sourceRoot":"","sources":["../src/LeftPanelSlotContext.tsx"],"names":[],"mappings":"AAAA,OAAO,KAAoC,MAAM,OAAO,CAAC;AAIzD,wBAAgB,qBAAqB,CAAC,EACpC,KAAK,EACL,QAAQ,GACT,EAAE;IACD,KAAK,EAAE,KAAK,CAAC,SAAS,GAAG,IAAI,CAAC;IAC9B,QAAQ,EAAE,KAAK,CAAC,SAAS,CAAC;CAC3B,2CAMA;AAED,wBAAgB,gBAAgB,IAAI,KAAK,CAAC,SAAS,GAAG,IAAI,CAEzD"}

@@ -1,0 +1,1 @@
+{"version":3,"file":"ColumnStretchContext.d.ts","sourceRoot":"","sources":["../../../../src/documents/blocks/helpers/ColumnStretchContext.tsx"],"names":[],"mappings":"AAAA,OAAO,KAAoC,MAAM,OAAO,CAAC;AAIzD,wBAAgB,qBAAqB,CAAC,EAAE,KAAK,EAAE,QAAQ,EAAE,EAAE;IAAE,KAAK,EAAE,OAAO,CAAC;IAAC,QAAQ,EAAE,KAAK,CAAC,SAAS,CAAA;CAAE,2CAMvG;AAED,wBAAgB,gBAAgB,YAE/B"}
