@@ -44,8 +44,7 @@
     "dev": "vite",
     "build": "vite build",
     "build:lib": "vite build --mode library && tsc --emitDeclarationOnly",
-    "copy:frontend": "node scripts/copy-to-frontend.js",
-    "build:all": "pnpm run build:lib && pnpm run copy:frontend",
+    "build:all": "pnpm run build:lib",
     "preview": "vite preview",
     "prepare": "pnpm run build:lib"
   },
