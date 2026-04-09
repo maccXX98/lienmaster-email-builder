@@ -170,9 +170,6 @@ export declare const EditorBlock: ({ type, data }: import("monto-email-document-
             childrenIds?: string[] | null | undefined;
         }>>>;
     }, "strip", z.ZodTypeAny, {
-        props?: {
-            childrenIds?: string[] | null | undefined;
-        } | null | undefined;
         style?: {
             backgroundColor?: string | null | undefined;
             borderColor?: string | null | undefined;
@@ -183,11 +180,11 @@ export declare const EditorBlock: ({ type, data }: import("monto-email-document-
                 right: number;
                 left: number;
             } | null | undefined;
+        } | null | undefined;
+        props?: {
+            childrenIds?: string[] | null | undefined;
         } | null | undefined;
     }, {
-        props?: {
-            childrenIds?: string[] | null | undefined;
-        } | null | undefined;
         style?: {
             backgroundColor?: string | null | undefined;
             borderColor?: string | null | undefined;
@@ -198,6 +195,9 @@ export declare const EditorBlock: ({ type, data }: import("monto-email-document-
                 right: number;
                 left: number;
             } | null | undefined;
+        } | null | undefined;
+        props?: {
+            childrenIds?: string[] | null | undefined;
         } | null | undefined;
     }>;
     ColumnsContainer: z.ZodObject<{
@@ -266,15 +266,6 @@ export declare const EditorBlock: ({ type, data }: import("monto-email-document-
             contentAlignment?: "bottom" | "top" | "stretch" | "middle" | null | undefined;
         }>>>;
     }, "strip", z.ZodTypeAny, {
-        props?: {
-            columns: {
-                childrenIds: string[];
-            }[];
-            columnsCount?: number | null | undefined;
-            fixedWidths?: [number | null | undefined, number | null | undefined, number | null | undefined, number | null | undefined] | null | undefined;
-            columnsGap?: number | null | undefined;
-            contentAlignment?: "bottom" | "top" | "stretch" | "middle" | null | undefined;
-        } | null | undefined;
         style?: {
             backgroundColor?: string | null | undefined;
             padding?: {
@@ -283,17 +274,17 @@ export declare const EditorBlock: ({ type, data }: import("monto-email-document-
                 right: number;
                 left: number;
             } | null | undefined;
+        } | null | undefined;
+        props?: {
+            columns: {
+                childrenIds: string[];
+            }[];
+            columnsCount?: number | null | undefined;
+            fixedWidths?: [number | null | undefined, number | null | undefined, number | null | undefined, number | null | undefined] | null | undefined;
+            columnsGap?: number | null | undefined;
+            contentAlignment?: "bottom" | "top" | "stretch" | "middle" | null | undefined;
         } | null | undefined;
     }, {
-        props?: {
-            columns: {
-                childrenIds: string[];
-            }[];
-            columnsCount?: number | null | undefined;
-            fixedWidths?: [number | null | undefined, number | null | undefined, number | null | undefined, number | null | undefined] | null | undefined;
-            columnsGap?: number | null | undefined;
-            contentAlignment?: "bottom" | "top" | "stretch" | "middle" | null | undefined;
-        } | null | undefined;
         style?: {
             backgroundColor?: string | null | undefined;
             padding?: {
@@ -302,6 +293,15 @@ export declare const EditorBlock: ({ type, data }: import("monto-email-document-
                 right: number;
                 left: number;
             } | null | undefined;
+        } | null | undefined;
+        props?: {
+            columns: {
+                childrenIds: string[];
+            }[];
+            columnsCount?: number | null | undefined;
+            fixedWidths?: [number | null | undefined, number | null | undefined, number | null | undefined, number | null | undefined] | null | undefined;
+            columnsGap?: number | null | undefined;
+            contentAlignment?: "bottom" | "top" | "stretch" | "middle" | null | undefined;
         } | null | undefined;
     }>;
     Heading: z.ZodObject<{
@@ -610,22 +610,22 @@ export declare const EditorBlock: ({ type, data }: import("monto-email-document-
             height?: string | null | undefined;
             width?: string | null | undefined;
             url?: string | null | undefined;
-            alt?: string | null | undefined;
             autoplay?: boolean | null | undefined;
             controls?: boolean | null | undefined;
             loop?: boolean | null | undefined;
             muted?: boolean | null | undefined;
+            alt?: string | null | undefined;
             contentAlignment?: "bottom" | "top" | "middle" | null | undefined;
             linkHref?: string | null | undefined;
         }, {
             height?: string | null | undefined;
             width?: string | null | undefined;
             url?: string | null | undefined;
-            alt?: string | null | undefined;
             autoplay?: boolean | null | undefined;
             controls?: boolean | null | undefined;
             loop?: boolean | null | undefined;
             muted?: boolean | null | undefined;
+            alt?: string | null | undefined;
             contentAlignment?: "bottom" | "top" | "middle" | null | undefined;
             linkHref?: string | null | undefined;
         }>>>;
@@ -668,18 +668,6 @@ export declare const EditorBlock: ({ type, data }: import("monto-email-document-
             } | null | undefined;
         }>>>;
     }, "strip", z.ZodTypeAny, {
-        props?: {
-            height?: string | null | undefined;
-            width?: string | null | undefined;
-            url?: string | null | undefined;
-            alt?: string | null | undefined;
-            autoplay?: boolean | null | undefined;
-            controls?: boolean | null | undefined;
-            loop?: boolean | null | undefined;
-            muted?: boolean | null | undefined;
-            contentAlignment?: "bottom" | "top" | "middle" | null | undefined;
-            linkHref?: string | null | undefined;
-        } | null | undefined;
         style?: {
             backgroundColor?: string | null | undefined;
             textAlign?: "left" | "right" | "center" | null | undefined;
@@ -689,20 +677,20 @@ export declare const EditorBlock: ({ type, data }: import("monto-email-document-
                 right: number;
                 top: number;
             } | null | undefined;
+        } | null | undefined;
+        props?: {
+            height?: string | null | undefined;
+            width?: string | null | undefined;
+            url?: string | null | undefined;
+            autoplay?: boolean | null | undefined;
+            controls?: boolean | null | undefined;
+            loop?: boolean | null | undefined;
+            muted?: boolean | null | undefined;
+            alt?: string | null | undefined;
+            contentAlignment?: "bottom" | "top" | "middle" | null | undefined;
+            linkHref?: string | null | undefined;
         } | null | undefined;
     }, {
-        props?: {
-            height?: string | null | undefined;
-            width?: string | null | undefined;
-            url?: string | null | undefined;
-            alt?: string | null | undefined;
-            autoplay?: boolean | null | undefined;
-            controls?: boolean | null | undefined;
-            loop?: boolean | null | undefined;
-            muted?: boolean | null | undefined;
-            contentAlignment?: "bottom" | "top" | "middle" | null | undefined;
-            linkHref?: string | null | undefined;
-        } | null | undefined;
         style?: {
             backgroundColor?: string | null | undefined;
             textAlign?: "left" | "right" | "center" | null | undefined;
@@ -712,6 +700,18 @@ export declare const EditorBlock: ({ type, data }: import("monto-email-document-
                 right: number;
                 top: number;
             } | null | undefined;
+        } | null | undefined;
+        props?: {
+            height?: string | null | undefined;
+            width?: string | null | undefined;
+            url?: string | null | undefined;
+            autoplay?: boolean | null | undefined;
+            controls?: boolean | null | undefined;
+            loop?: boolean | null | undefined;
+            muted?: boolean | null | undefined;
+            alt?: string | null | undefined;
+            contentAlignment?: "bottom" | "top" | "middle" | null | undefined;
+            linkHref?: string | null | undefined;
         } | null | undefined;
     }>;
     Text: z.ZodObject<{
@@ -1133,21 +1133,21 @@ export declare const EditorBlock: ({ type, data }: import("monto-email-document-
                 url?: string | null | undefined;
             }>, "many">>>;
         }, "strip", z.ZodTypeAny, {
-            platforms?: ("x" | "facebook" | "instagram" | "linkedin" | "youtube" | "tiktok" | "snapchat" | "whatsapp" | "telegram" | "discord" | "reddit" | "twitch" | "threads")[] | null | undefined;
-            iconStyle?: "standard" | "no-border-black" | "no-border-white" | "origin-colorful" | "with-border-black" | "with-border-white" | "with-border-line-colorful" | "with-border-line-black" | "with-border-line-white" | null | undefined;
-            iconSize?: number | null | undefined;
             socials?: {
                 platform: "x" | "facebook" | "instagram" | "linkedin" | "youtube" | "tiktok" | "snapchat" | "whatsapp" | "telegram" | "discord" | "reddit" | "twitch" | "threads";
                 url?: string | null | undefined;
             }[] | null | undefined;
+            platforms?: ("x" | "facebook" | "instagram" | "linkedin" | "youtube" | "tiktok" | "snapchat" | "whatsapp" | "telegram" | "discord" | "reddit" | "twitch" | "threads")[] | null | undefined;
+            iconStyle?: "standard" | "no-border-black" | "no-border-white" | "origin-colorful" | "with-border-black" | "with-border-white" | "with-border-line-colorful" | "with-border-line-black" | "with-border-line-white" | null | undefined;
+            iconSize?: number | null | undefined;
         }, {
-            platforms?: ("x" | "facebook" | "instagram" | "linkedin" | "youtube" | "tiktok" | "snapchat" | "whatsapp" | "telegram" | "discord" | "reddit" | "twitch" | "threads")[] | null | undefined;
-            iconStyle?: "standard" | "no-border-black" | "no-border-white" | "origin-colorful" | "with-border-black" | "with-border-white" | "with-border-line-colorful" | "with-border-line-black" | "with-border-line-white" | null | undefined;
-            iconSize?: number | null | undefined;
             socials?: {
                 platform: "x" | "facebook" | "instagram" | "linkedin" | "youtube" | "tiktok" | "snapchat" | "whatsapp" | "telegram" | "discord" | "reddit" | "twitch" | "threads";
                 url?: string | null | undefined;
             }[] | null | undefined;
+            platforms?: ("x" | "facebook" | "instagram" | "linkedin" | "youtube" | "tiktok" | "snapchat" | "whatsapp" | "telegram" | "discord" | "reddit" | "twitch" | "threads")[] | null | undefined;
+            iconStyle?: "standard" | "no-border-black" | "no-border-white" | "origin-colorful" | "with-border-black" | "with-border-white" | "with-border-line-colorful" | "with-border-line-black" | "with-border-line-white" | null | undefined;
+            iconSize?: number | null | undefined;
         }>>>;
         style: z.ZodNullable<z.ZodOptional<z.ZodObject<{
             padding: z.ZodNullable<z.ZodOptional<z.ZodObject<{
@@ -1188,15 +1188,6 @@ export declare const EditorBlock: ({ type, data }: import("monto-email-document-
             } | null | undefined;
         }>>>;
     }, "strip", z.ZodTypeAny, {
-        props?: {
-            platforms?: ("x" | "facebook" | "instagram" | "linkedin" | "youtube" | "tiktok" | "snapchat" | "whatsapp" | "telegram" | "discord" | "reddit" | "twitch" | "threads")[] | null | undefined;
-            iconStyle?: "standard" | "no-border-black" | "no-border-white" | "origin-colorful" | "with-border-black" | "with-border-white" | "with-border-line-colorful" | "with-border-line-black" | "with-border-line-white" | null | undefined;
-            iconSize?: number | null | undefined;
-            socials?: {
-                platform: "x" | "facebook" | "instagram" | "linkedin" | "youtube" | "tiktok" | "snapchat" | "whatsapp" | "telegram" | "discord" | "reddit" | "twitch" | "threads";
-                url?: string | null | undefined;
-            }[] | null | undefined;
-        } | null | undefined;
         style?: {
             backgroundColor?: string | null | undefined;
             textAlign?: "left" | "right" | "center" | null | undefined;
@@ -1206,17 +1197,17 @@ export declare const EditorBlock: ({ type, data }: import("monto-email-document-
                 right: number;
                 top: number;
             } | null | undefined;
+        } | null | undefined;
+        props?: {
+            socials?: {
+                platform: "x" | "facebook" | "instagram" | "linkedin" | "youtube" | "tiktok" | "snapchat" | "whatsapp" | "telegram" | "discord" | "reddit" | "twitch" | "threads";
+                url?: string | null | undefined;
+            }[] | null | undefined;
+            platforms?: ("x" | "facebook" | "instagram" | "linkedin" | "youtube" | "tiktok" | "snapchat" | "whatsapp" | "telegram" | "discord" | "reddit" | "twitch" | "threads")[] | null | undefined;
+            iconStyle?: "standard" | "no-border-black" | "no-border-white" | "origin-colorful" | "with-border-black" | "with-border-white" | "with-border-line-colorful" | "with-border-line-black" | "with-border-line-white" | null | undefined;
+            iconSize?: number | null | undefined;
         } | null | undefined;
     }, {
-        props?: {
-            platforms?: ("x" | "facebook" | "instagram" | "linkedin" | "youtube" | "tiktok" | "snapchat" | "whatsapp" | "telegram" | "discord" | "reddit" | "twitch" | "threads")[] | null | undefined;
-            iconStyle?: "standard" | "no-border-black" | "no-border-white" | "origin-colorful" | "with-border-black" | "with-border-white" | "with-border-line-colorful" | "with-border-line-black" | "with-border-line-white" | null | undefined;
-            iconSize?: number | null | undefined;
-            socials?: {
-                platform: "x" | "facebook" | "instagram" | "linkedin" | "youtube" | "tiktok" | "snapchat" | "whatsapp" | "telegram" | "discord" | "reddit" | "twitch" | "threads";
-                url?: string | null | undefined;
-            }[] | null | undefined;
-        } | null | undefined;
         style?: {
             backgroundColor?: string | null | undefined;
             textAlign?: "left" | "right" | "center" | null | undefined;
@@ -1226,6 +1217,15 @@ export declare const EditorBlock: ({ type, data }: import("monto-email-document-
                 right: number;
                 top: number;
             } | null | undefined;
+        } | null | undefined;
+        props?: {
+            socials?: {
+                platform: "x" | "facebook" | "instagram" | "linkedin" | "youtube" | "tiktok" | "snapchat" | "whatsapp" | "telegram" | "discord" | "reddit" | "twitch" | "threads";
+                url?: string | null | undefined;
+            }[] | null | undefined;
+            platforms?: ("x" | "facebook" | "instagram" | "linkedin" | "youtube" | "tiktok" | "snapchat" | "whatsapp" | "telegram" | "discord" | "reddit" | "twitch" | "threads")[] | null | undefined;
+            iconStyle?: "standard" | "no-border-black" | "no-border-white" | "origin-colorful" | "with-border-black" | "with-border-white" | "with-border-line-colorful" | "with-border-line-black" | "with-border-line-white" | null | undefined;
+            iconSize?: number | null | undefined;
         } | null | undefined;
     }>;
 }>) => React.JSX.Element;
@@ -1400,9 +1400,6 @@ export declare const EditorBlockSchema: z.ZodEffects<z.ZodDiscriminatedUnion<"ty
             childrenIds?: string[] | null | undefined;
         }>>>;
     }, "strip", z.ZodTypeAny, {
-        props?: {
-            childrenIds?: string[] | null | undefined;
-        } | null | undefined;
         style?: {
             backgroundColor?: string | null | undefined;
             borderColor?: string | null | undefined;
@@ -1413,11 +1410,11 @@ export declare const EditorBlockSchema: z.ZodEffects<z.ZodDiscriminatedUnion<"ty
                 right: number;
                 left: number;
             } | null | undefined;
+        } | null | undefined;
+        props?: {
+            childrenIds?: string[] | null | undefined;
         } | null | undefined;
     }, {
-        props?: {
-            childrenIds?: string[] | null | undefined;
-        } | null | undefined;
         style?: {
             backgroundColor?: string | null | undefined;
             borderColor?: string | null | undefined;
@@ -1428,6 +1425,9 @@ export declare const EditorBlockSchema: z.ZodEffects<z.ZodDiscriminatedUnion<"ty
                 right: number;
                 left: number;
             } | null | undefined;
+        } | null | undefined;
+        props?: {
+            childrenIds?: string[] | null | undefined;
         } | null | undefined;
     }>;
     ColumnsContainer: z.ZodObject<{
@@ -1496,15 +1496,6 @@ export declare const EditorBlockSchema: z.ZodEffects<z.ZodDiscriminatedUnion<"ty
             contentAlignment?: "bottom" | "top" | "stretch" | "middle" | null | undefined;
         }>>>;
     }, "strip", z.ZodTypeAny, {
-        props?: {
-            columns: {
-                childrenIds: string[];
-            }[];
-            columnsCount?: number | null | undefined;
-            fixedWidths?: [number | null | undefined, number | null | undefined, number | null | undefined, number | null | undefined] | null | undefined;
-            columnsGap?: number | null | undefined;
-            contentAlignment?: "bottom" | "top" | "stretch" | "middle" | null | undefined;
-        } | null | undefined;
         style?: {
             backgroundColor?: string | null | undefined;
             padding?: {
@@ -1513,17 +1504,17 @@ export declare const EditorBlockSchema: z.ZodEffects<z.ZodDiscriminatedUnion<"ty
                 right: number;
                 left: number;
             } | null | undefined;
+        } | null | undefined;
+        props?: {
+            columns: {
+                childrenIds: string[];
+            }[];
+            columnsCount?: number | null | undefined;
+            fixedWidths?: [number | null | undefined, number | null | undefined, number | null | undefined, number | null | undefined] | null | undefined;
+            columnsGap?: number | null | undefined;
+            contentAlignment?: "bottom" | "top" | "stretch" | "middle" | null | undefined;
         } | null | undefined;
     }, {
-        props?: {
-            columns: {
-                childrenIds: string[];
-            }[];
-            columnsCount?: number | null | undefined;
-            fixedWidths?: [number | null | undefined, number | null | undefined, number | null | undefined, number | null | undefined] | null | undefined;
-            columnsGap?: number | null | undefined;
-            contentAlignment?: "bottom" | "top" | "stretch" | "middle" | null | undefined;
-        } | null | undefined;
         style?: {
             backgroundColor?: string | null | undefined;
             padding?: {
@@ -1532,6 +1523,15 @@ export declare const EditorBlockSchema: z.ZodEffects<z.ZodDiscriminatedUnion<"ty
                 right: number;
                 left: number;
             } | null | undefined;
+        } | null | undefined;
+        props?: {
+            columns: {
+                childrenIds: string[];
+            }[];
+            columnsCount?: number | null | undefined;
+            fixedWidths?: [number | null | undefined, number | null | undefined, number | null | undefined, number | null | undefined] | null | undefined;
+            columnsGap?: number | null | undefined;
+            contentAlignment?: "bottom" | "top" | "stretch" | "middle" | null | undefined;
         } | null | undefined;
     }>;
     Heading: z.ZodObject<{
@@ -1840,22 +1840,22 @@ export declare const EditorBlockSchema: z.ZodEffects<z.ZodDiscriminatedUnion<"ty
             height?: string | null | undefined;
             width?: string | null | undefined;
             url?: string | null | undefined;
-            alt?: string | null | undefined;
             autoplay?: boolean | null | undefined;
             controls?: boolean | null | undefined;
             loop?: boolean | null | undefined;
             muted?: boolean | null | undefined;
+            alt?: string | null | undefined;
             contentAlignment?: "bottom" | "top" | "middle" | null | undefined;
             linkHref?: string | null | undefined;
         }, {
             height?: string | null | undefined;
             width?: string | null | undefined;
             url?: string | null | undefined;
-            alt?: string | null | undefined;
             autoplay?: boolean | null | undefined;
             controls?: boolean | null | undefined;
             loop?: boolean | null | undefined;
             muted?: boolean | null | undefined;
+            alt?: string | null | undefined;
             contentAlignment?: "bottom" | "top" | "middle" | null | undefined;
             linkHref?: string | null | undefined;
         }>>>;
@@ -1898,18 +1898,6 @@ export declare const EditorBlockSchema: z.ZodEffects<z.ZodDiscriminatedUnion<"ty
             } | null | undefined;
         }>>>;
     }, "strip", z.ZodTypeAny, {
-        props?: {
-            height?: string | null | undefined;
-            width?: string | null | undefined;
-            url?: string | null | undefined;
-            alt?: string | null | undefined;
-            autoplay?: boolean | null | undefined;
-            controls?: boolean | null | undefined;
-            loop?: boolean | null | undefined;
-            muted?: boolean | null | undefined;
-            contentAlignment?: "bottom" | "top" | "middle" | null | undefined;
-            linkHref?: string | null | undefined;
-        } | null | undefined;
         style?: {
             backgroundColor?: string | null | undefined;
             textAlign?: "left" | "right" | "center" | null | undefined;
@@ -1919,20 +1907,20 @@ export declare const EditorBlockSchema: z.ZodEffects<z.ZodDiscriminatedUnion<"ty
                 right: number;
                 top: number;
             } | null | undefined;
+        } | null | undefined;
+        props?: {
+            height?: string | null | undefined;
+            width?: string | null | undefined;
+            url?: string | null | undefined;
+            autoplay?: boolean | null | undefined;
+            controls?: boolean | null | undefined;
+            loop?: boolean | null | undefined;
+            muted?: boolean | null | undefined;
+            alt?: string | null | undefined;
+            contentAlignment?: "bottom" | "top" | "middle" | null | undefined;
+            linkHref?: string | null | undefined;
         } | null | undefined;
     }, {
-        props?: {
-            height?: string | null | undefined;
-            width?: string | null | undefined;
-            url?: string | null | undefined;
-            alt?: string | null | undefined;
-            autoplay?: boolean | null | undefined;
-            controls?: boolean | null | undefined;
-            loop?: boolean | null | undefined;
-            muted?: boolean | null | undefined;
-            contentAlignment?: "bottom" | "top" | "middle" | null | undefined;
-            linkHref?: string | null | undefined;
-        } | null | undefined;
         style?: {
             backgroundColor?: string | null | undefined;
             textAlign?: "left" | "right" | "center" | null | undefined;
@@ -1942,6 +1930,18 @@ export declare const EditorBlockSchema: z.ZodEffects<z.ZodDiscriminatedUnion<"ty
                 right: number;
                 top: number;
             } | null | undefined;
+        } | null | undefined;
+        props?: {
+            height?: string | null | undefined;
+            width?: string | null | undefined;
+            url?: string | null | undefined;
+            autoplay?: boolean | null | undefined;
+            controls?: boolean | null | undefined;
+            loop?: boolean | null | undefined;
+            muted?: boolean | null | undefined;
+            alt?: string | null | undefined;
+            contentAlignment?: "bottom" | "top" | "middle" | null | undefined;
+            linkHref?: string | null | undefined;
         } | null | undefined;
     }>;
     Text: z.ZodObject<{
@@ -2363,21 +2363,21 @@ export declare const EditorBlockSchema: z.ZodEffects<z.ZodDiscriminatedUnion<"ty
                 url?: string | null | undefined;
             }>, "many">>>;
         }, "strip", z.ZodTypeAny, {
-            platforms?: ("x" | "facebook" | "instagram" | "linkedin" | "youtube" | "tiktok" | "snapchat" | "whatsapp" | "telegram" | "discord" | "reddit" | "twitch" | "threads")[] | null | undefined;
-            iconStyle?: "standard" | "no-border-black" | "no-border-white" | "origin-colorful" | "with-border-black" | "with-border-white" | "with-border-line-colorful" | "with-border-line-black" | "with-border-line-white" | null | undefined;
-            iconSize?: number | null | undefined;
             socials?: {
                 platform: "x" | "facebook" | "instagram" | "linkedin" | "youtube" | "tiktok" | "snapchat" | "whatsapp" | "telegram" | "discord" | "reddit" | "twitch" | "threads";
                 url?: string | null | undefined;
             }[] | null | undefined;
+            platforms?: ("x" | "facebook" | "instagram" | "linkedin" | "youtube" | "tiktok" | "snapchat" | "whatsapp" | "telegram" | "discord" | "reddit" | "twitch" | "threads")[] | null | undefined;
+            iconStyle?: "standard" | "no-border-black" | "no-border-white" | "origin-colorful" | "with-border-black" | "with-border-white" | "with-border-line-colorful" | "with-border-line-black" | "with-border-line-white" | null | undefined;
+            iconSize?: number | null | undefined;
         }, {
-            platforms?: ("x" | "facebook" | "instagram" | "linkedin" | "youtube" | "tiktok" | "snapchat" | "whatsapp" | "telegram" | "discord" | "reddit" | "twitch" | "threads")[] | null | undefined;
-            iconStyle?: "standard" | "no-border-black" | "no-border-white" | "origin-colorful" | "with-border-black" | "with-border-white" | "with-border-line-colorful" | "with-border-line-black" | "with-border-line-white" | null | undefined;
-            iconSize?: number | null | undefined;
             socials?: {
                 platform: "x" | "facebook" | "instagram" | "linkedin" | "youtube" | "tiktok" | "snapchat" | "whatsapp" | "telegram" | "discord" | "reddit" | "twitch" | "threads";
                 url?: string | null | undefined;
             }[] | null | undefined;
+            platforms?: ("x" | "facebook" | "instagram" | "linkedin" | "youtube" | "tiktok" | "snapchat" | "whatsapp" | "telegram" | "discord" | "reddit" | "twitch" | "threads")[] | null | undefined;
+            iconStyle?: "standard" | "no-border-black" | "no-border-white" | "origin-colorful" | "with-border-black" | "with-border-white" | "with-border-line-colorful" | "with-border-line-black" | "with-border-line-white" | null | undefined;
+            iconSize?: number | null | undefined;
         }>>>;
         style: z.ZodNullable<z.ZodOptional<z.ZodObject<{
             padding: z.ZodNullable<z.ZodOptional<z.ZodObject<{
@@ -2418,15 +2418,6 @@ export declare const EditorBlockSchema: z.ZodEffects<z.ZodDiscriminatedUnion<"ty
             } | null | undefined;
         }>>>;
     }, "strip", z.ZodTypeAny, {
-        props?: {
-            platforms?: ("x" | "facebook" | "instagram" | "linkedin" | "youtube" | "tiktok" | "snapchat" | "whatsapp" | "telegram" | "discord" | "reddit" | "twitch" | "threads")[] | null | undefined;
-            iconStyle?: "standard" | "no-border-black" | "no-border-white" | "origin-colorful" | "with-border-black" | "with-border-white" | "with-border-line-colorful" | "with-border-line-black" | "with-border-line-white" | null | undefined;
-            iconSize?: number | null | undefined;
-            socials?: {
-                platform: "x" | "facebook" | "instagram" | "linkedin" | "youtube" | "tiktok" | "snapchat" | "whatsapp" | "telegram" | "discord" | "reddit" | "twitch" | "threads";
-                url?: string | null | undefined;
-            }[] | null | undefined;
-        } | null | undefined;
         style?: {
             backgroundColor?: string | null | undefined;
             textAlign?: "left" | "right" | "center" | null | undefined;
@@ -2436,17 +2427,17 @@ export declare const EditorBlockSchema: z.ZodEffects<z.ZodDiscriminatedUnion<"ty
                 right: number;
                 top: number;
             } | null | undefined;
+        } | null | undefined;
+        props?: {
+            socials?: {
+                platform: "x" | "facebook" | "instagram" | "linkedin" | "youtube" | "tiktok" | "snapchat" | "whatsapp" | "telegram" | "discord" | "reddit" | "twitch" | "threads";
+                url?: string | null | undefined;
+            }[] | null | undefined;
+            platforms?: ("x" | "facebook" | "instagram" | "linkedin" | "youtube" | "tiktok" | "snapchat" | "whatsapp" | "telegram" | "discord" | "reddit" | "twitch" | "threads")[] | null | undefined;
+            iconStyle?: "standard" | "no-border-black" | "no-border-white" | "origin-colorful" | "with-border-black" | "with-border-white" | "with-border-line-colorful" | "with-border-line-black" | "with-border-line-white" | null | undefined;
+            iconSize?: number | null | undefined;
         } | null | undefined;
     }, {
-        props?: {
-            platforms?: ("x" | "facebook" | "instagram" | "linkedin" | "youtube" | "tiktok" | "snapchat" | "whatsapp" | "telegram" | "discord" | "reddit" | "twitch" | "threads")[] | null | undefined;
-            iconStyle?: "standard" | "no-border-black" | "no-border-white" | "origin-colorful" | "with-border-black" | "with-border-white" | "with-border-line-colorful" | "with-border-line-black" | "with-border-line-white" | null | undefined;
-            iconSize?: number | null | undefined;
-            socials?: {
-                platform: "x" | "facebook" | "instagram" | "linkedin" | "youtube" | "tiktok" | "snapchat" | "whatsapp" | "telegram" | "discord" | "reddit" | "twitch" | "threads";
-                url?: string | null | undefined;
-            }[] | null | undefined;
-        } | null | undefined;
         style?: {
             backgroundColor?: string | null | undefined;
             textAlign?: "left" | "right" | "center" | null | undefined;
@@ -2456,6 +2447,15 @@ export declare const EditorBlockSchema: z.ZodEffects<z.ZodDiscriminatedUnion<"ty
                 right: number;
                 top: number;
             } | null | undefined;
+        } | null | undefined;
+        props?: {
+            socials?: {
+                platform: "x" | "facebook" | "instagram" | "linkedin" | "youtube" | "tiktok" | "snapchat" | "whatsapp" | "telegram" | "discord" | "reddit" | "twitch" | "threads";
+                url?: string | null | undefined;
+            }[] | null | undefined;
+            platforms?: ("x" | "facebook" | "instagram" | "linkedin" | "youtube" | "tiktok" | "snapchat" | "whatsapp" | "telegram" | "discord" | "reddit" | "twitch" | "threads")[] | null | undefined;
+            iconStyle?: "standard" | "no-border-black" | "no-border-white" | "origin-colorful" | "with-border-black" | "with-border-white" | "with-border-line-colorful" | "with-border-line-black" | "with-border-line-white" | null | undefined;
+            iconSize?: number | null | undefined;
         } | null | undefined;
     }>;
 }>, any>;
@@ -2630,9 +2630,6 @@ export declare const EditorConfigurationSchema: z.ZodRecord<z.ZodString, z.ZodEf
             childrenIds?: string[] | null | undefined;
         }>>>;
     }, "strip", z.ZodTypeAny, {
-        props?: {
-            childrenIds?: string[] | null | undefined;
-        } | null | undefined;
         style?: {
             backgroundColor?: string | null | undefined;
             borderColor?: string | null | undefined;
@@ -2643,11 +2640,11 @@ export declare const EditorConfigurationSchema: z.ZodRecord<z.ZodString, z.ZodEf
                 right: number;
                 left: number;
             } | null | undefined;
+        } | null | undefined;
+        props?: {
+            childrenIds?: string[] | null | undefined;
         } | null | undefined;
     }, {
-        props?: {
-            childrenIds?: string[] | null | undefined;
-        } | null | undefined;
         style?: {
             backgroundColor?: string | null | undefined;
             borderColor?: string | null | undefined;
@@ -2658,6 +2655,9 @@ export declare const EditorConfigurationSchema: z.ZodRecord<z.ZodString, z.ZodEf
                 right: number;
                 left: number;
             } | null | undefined;
+        } | null | undefined;
+        props?: {
+            childrenIds?: string[] | null | undefined;
         } | null | undefined;
     }>;
     ColumnsContainer: z.ZodObject<{
@@ -2726,15 +2726,6 @@ export declare const EditorConfigurationSchema: z.ZodRecord<z.ZodString, z.ZodEf
             contentAlignment?: "bottom" | "top" | "stretch" | "middle" | null | undefined;
         }>>>;
     }, "strip", z.ZodTypeAny, {
-        props?: {
-            columns: {
-                childrenIds: string[];
-            }[];
-            columnsCount?: number | null | undefined;
-            fixedWidths?: [number | null | undefined, number | null | undefined, number | null | undefined, number | null | undefined] | null | undefined;
-            columnsGap?: number | null | undefined;
-            contentAlignment?: "bottom" | "top" | "stretch" | "middle" | null | undefined;
-        } | null | undefined;
         style?: {
             backgroundColor?: string | null | undefined;
             padding?: {
@@ -2743,17 +2734,17 @@ export declare const EditorConfigurationSchema: z.ZodRecord<z.ZodString, z.ZodEf
                 right: number;
                 left: number;
             } | null | undefined;
+        } | null | undefined;
+        props?: {
+            columns: {
+                childrenIds: string[];
+            }[];
+            columnsCount?: number | null | undefined;
+            fixedWidths?: [number | null | undefined, number | null | undefined, number | null | undefined, number | null | undefined] | null | undefined;
+            columnsGap?: number | null | undefined;
+            contentAlignment?: "bottom" | "top" | "stretch" | "middle" | null | undefined;
         } | null | undefined;
     }, {
-        props?: {
-            columns: {
-                childrenIds: string[];
-            }[];
-            columnsCount?: number | null | undefined;
-            fixedWidths?: [number | null | undefined, number | null | undefined, number | null | undefined, number | null | undefined] | null | undefined;
-            columnsGap?: number | null | undefined;
-            contentAlignment?: "bottom" | "top" | "stretch" | "middle" | null | undefined;
-        } | null | undefined;
         style?: {
             backgroundColor?: string | null | undefined;
             padding?: {
@@ -2762,6 +2753,15 @@ export declare const EditorConfigurationSchema: z.ZodRecord<z.ZodString, z.ZodEf
                 right: number;
                 left: number;
             } | null | undefined;
+        } | null | undefined;
+        props?: {
+            columns: {
+                childrenIds: string[];
+            }[];
+            columnsCount?: number | null | undefined;
+            fixedWidths?: [number | null | undefined, number | null | undefined, number | null | undefined, number | null | undefined] | null | undefined;
+            columnsGap?: number | null | undefined;
+            contentAlignment?: "bottom" | "top" | "stretch" | "middle" | null | undefined;
         } | null | undefined;
     }>;
     Heading: z.ZodObject<{
@@ -3070,22 +3070,22 @@ export declare const EditorConfigurationSchema: z.ZodRecord<z.ZodString, z.ZodEf
             height?: string | null | undefined;
             width?: string | null | undefined;
             url?: string | null | undefined;
-            alt?: string | null | undefined;
             autoplay?: boolean | null | undefined;
             controls?: boolean | null | undefined;
             loop?: boolean | null | undefined;
             muted?: boolean | null | undefined;
+            alt?: string | null | undefined;
             contentAlignment?: "bottom" | "top" | "middle" | null | undefined;
             linkHref?: string | null | undefined;
         }, {
             height?: string | null | undefined;
             width?: string | null | undefined;
             url?: string | null | undefined;
-            alt?: string | null | undefined;
             autoplay?: boolean | null | undefined;
             controls?: boolean | null | undefined;
             loop?: boolean | null | undefined;
             muted?: boolean | null | undefined;
+            alt?: string | null | undefined;
             contentAlignment?: "bottom" | "top" | "middle" | null | undefined;
             linkHref?: string | null | undefined;
         }>>>;
@@ -3128,18 +3128,6 @@ export declare const EditorConfigurationSchema: z.ZodRecord<z.ZodString, z.ZodEf
             } | null | undefined;
         }>>>;
     }, "strip", z.ZodTypeAny, {
-        props?: {
-            height?: string | null | undefined;
-            width?: string | null | undefined;
-            url?: string | null | undefined;
-            alt?: string | null | undefined;
-            autoplay?: boolean | null | undefined;
-            controls?: boolean | null | undefined;
-            loop?: boolean | null | undefined;
-            muted?: boolean | null | undefined;
-            contentAlignment?: "bottom" | "top" | "middle" | null | undefined;
-            linkHref?: string | null | undefined;
-        } | null | undefined;
         style?: {
             backgroundColor?: string | null | undefined;
             textAlign?: "left" | "right" | "center" | null | undefined;
@@ -3149,20 +3137,20 @@ export declare const EditorConfigurationSchema: z.ZodRecord<z.ZodString, z.ZodEf
                 right: number;
                 top: number;
             } | null | undefined;
+        } | null | undefined;
+        props?: {
+            height?: string | null | undefined;
+            width?: string | null | undefined;
+            url?: string | null | undefined;
+            autoplay?: boolean | null | undefined;
+            controls?: boolean | null | undefined;
+            loop?: boolean | null | undefined;
+            muted?: boolean | null | undefined;
+            alt?: string | null | undefined;
+            contentAlignment?: "bottom" | "top" | "middle" | null | undefined;
+            linkHref?: string | null | undefined;
         } | null | undefined;
     }, {
-        props?: {
-            height?: string | null | undefined;
-            width?: string | null | undefined;
-            url?: string | null | undefined;
-            alt?: string | null | undefined;
-            autoplay?: boolean | null | undefined;
-            controls?: boolean | null | undefined;
-            loop?: boolean | null | undefined;
-            muted?: boolean | null | undefined;
-            contentAlignment?: "bottom" | "top" | "middle" | null | undefined;
-            linkHref?: string | null | undefined;
-        } | null | undefined;
         style?: {
             backgroundColor?: string | null | undefined;
             textAlign?: "left" | "right" | "center" | null | undefined;
@@ -3172,6 +3160,18 @@ export declare const EditorConfigurationSchema: z.ZodRecord<z.ZodString, z.ZodEf
                 right: number;
                 top: number;
             } | null | undefined;
+        } | null | undefined;
+        props?: {
+            height?: string | null | undefined;
+            width?: string | null | undefined;
+            url?: string | null | undefined;
+            autoplay?: boolean | null | undefined;
+            controls?: boolean | null | undefined;
+            loop?: boolean | null | undefined;
+            muted?: boolean | null | undefined;
+            alt?: string | null | undefined;
+            contentAlignment?: "bottom" | "top" | "middle" | null | undefined;
+            linkHref?: string | null | undefined;
         } | null | undefined;
     }>;
     Text: z.ZodObject<{
@@ -3593,21 +3593,21 @@ export declare const EditorConfigurationSchema: z.ZodRecord<z.ZodString, z.ZodEf
                 url?: string | null | undefined;
             }>, "many">>>;
         }, "strip", z.ZodTypeAny, {
-            platforms?: ("x" | "facebook" | "instagram" | "linkedin" | "youtube" | "tiktok" | "snapchat" | "whatsapp" | "telegram" | "discord" | "reddit" | "twitch" | "threads")[] | null | undefined;
-            iconStyle?: "standard" | "no-border-black" | "no-border-white" | "origin-colorful" | "with-border-black" | "with-border-white" | "with-border-line-colorful" | "with-border-line-black" | "with-border-line-white" | null | undefined;
-            iconSize?: number | null | undefined;
             socials?: {
                 platform: "x" | "facebook" | "instagram" | "linkedin" | "youtube" | "tiktok" | "snapchat" | "whatsapp" | "telegram" | "discord" | "reddit" | "twitch" | "threads";
                 url?: string | null | undefined;
             }[] | null | undefined;
+            platforms?: ("x" | "facebook" | "instagram" | "linkedin" | "youtube" | "tiktok" | "snapchat" | "whatsapp" | "telegram" | "discord" | "reddit" | "twitch" | "threads")[] | null | undefined;
+            iconStyle?: "standard" | "no-border-black" | "no-border-white" | "origin-colorful" | "with-border-black" | "with-border-white" | "with-border-line-colorful" | "with-border-line-black" | "with-border-line-white" | null | undefined;
+            iconSize?: number | null | undefined;
         }, {
-            platforms?: ("x" | "facebook" | "instagram" | "linkedin" | "youtube" | "tiktok" | "snapchat" | "whatsapp" | "telegram" | "discord" | "reddit" | "twitch" | "threads")[] | null | undefined;
-            iconStyle?: "standard" | "no-border-black" | "no-border-white" | "origin-colorful" | "with-border-black" | "with-border-white" | "with-border-line-colorful" | "with-border-line-black" | "with-border-line-white" | null | undefined;
-            iconSize?: number | null | undefined;
             socials?: {
                 platform: "x" | "facebook" | "instagram" | "linkedin" | "youtube" | "tiktok" | "snapchat" | "whatsapp" | "telegram" | "discord" | "reddit" | "twitch" | "threads";
                 url?: string | null | undefined;
             }[] | null | undefined;
+            platforms?: ("x" | "facebook" | "instagram" | "linkedin" | "youtube" | "tiktok" | "snapchat" | "whatsapp" | "telegram" | "discord" | "reddit" | "twitch" | "threads")[] | null | undefined;
+            iconStyle?: "standard" | "no-border-black" | "no-border-white" | "origin-colorful" | "with-border-black" | "with-border-white" | "with-border-line-colorful" | "with-border-line-black" | "with-border-line-white" | null | undefined;
+            iconSize?: number | null | undefined;
         }>>>;
         style: z.ZodNullable<z.ZodOptional<z.ZodObject<{
             padding: z.ZodNullable<z.ZodOptional<z.ZodObject<{
@@ -3648,15 +3648,6 @@ export declare const EditorConfigurationSchema: z.ZodRecord<z.ZodString, z.ZodEf
             } | null | undefined;
         }>>>;
     }, "strip", z.ZodTypeAny, {
-        props?: {
-            platforms?: ("x" | "facebook" | "instagram" | "linkedin" | "youtube" | "tiktok" | "snapchat" | "whatsapp" | "telegram" | "discord" | "reddit" | "twitch" | "threads")[] | null | undefined;
-            iconStyle?: "standard" | "no-border-black" | "no-border-white" | "origin-colorful" | "with-border-black" | "with-border-white" | "with-border-line-colorful" | "with-border-line-black" | "with-border-line-white" | null | undefined;
-            iconSize?: number | null | undefined;
-            socials?: {
-                platform: "x" | "facebook" | "instagram" | "linkedin" | "youtube" | "tiktok" | "snapchat" | "whatsapp" | "telegram" | "discord" | "reddit" | "twitch" | "threads";
-                url?: string | null | undefined;
-            }[] | null | undefined;
-        } | null | undefined;
         style?: {
             backgroundColor?: string | null | undefined;
             textAlign?: "left" | "right" | "center" | null | undefined;
@@ -3666,17 +3657,17 @@ export declare const EditorConfigurationSchema: z.ZodRecord<z.ZodString, z.ZodEf
                 right: number;
                 top: number;
             } | null | undefined;
+        } | null | undefined;
+        props?: {
+            socials?: {
+                platform: "x" | "facebook" | "instagram" | "linkedin" | "youtube" | "tiktok" | "snapchat" | "whatsapp" | "telegram" | "discord" | "reddit" | "twitch" | "threads";
+                url?: string | null | undefined;
+            }[] | null | undefined;
+            platforms?: ("x" | "facebook" | "instagram" | "linkedin" | "youtube" | "tiktok" | "snapchat" | "whatsapp" | "telegram" | "discord" | "reddit" | "twitch" | "threads")[] | null | undefined;
+            iconStyle?: "standard" | "no-border-black" | "no-border-white" | "origin-colorful" | "with-border-black" | "with-border-white" | "with-border-line-colorful" | "with-border-line-black" | "with-border-line-white" | null | undefined;
+            iconSize?: number | null | undefined;
         } | null | undefined;
     }, {
-        props?: {
-            platforms?: ("x" | "facebook" | "instagram" | "linkedin" | "youtube" | "tiktok" | "snapchat" | "whatsapp" | "telegram" | "discord" | "reddit" | "twitch" | "threads")[] | null | undefined;
-            iconStyle?: "standard" | "no-border-black" | "no-border-white" | "origin-colorful" | "with-border-black" | "with-border-white" | "with-border-line-colorful" | "with-border-line-black" | "with-border-line-white" | null | undefined;
-            iconSize?: number | null | undefined;
-            socials?: {
-                platform: "x" | "facebook" | "instagram" | "linkedin" | "youtube" | "tiktok" | "snapchat" | "whatsapp" | "telegram" | "discord" | "reddit" | "twitch" | "threads";
-                url?: string | null | undefined;
-            }[] | null | undefined;
-        } | null | undefined;
         style?: {
             backgroundColor?: string | null | undefined;
             textAlign?: "left" | "right" | "center" | null | undefined;
@@ -3686,6 +3677,15 @@ export declare const EditorConfigurationSchema: z.ZodRecord<z.ZodString, z.ZodEf
                 right: number;
                 top: number;
             } | null | undefined;
+        } | null | undefined;
+        props?: {
+            socials?: {
+                platform: "x" | "facebook" | "instagram" | "linkedin" | "youtube" | "tiktok" | "snapchat" | "whatsapp" | "telegram" | "discord" | "reddit" | "twitch" | "threads";
+                url?: string | null | undefined;
+            }[] | null | undefined;
+            platforms?: ("x" | "facebook" | "instagram" | "linkedin" | "youtube" | "tiktok" | "snapchat" | "whatsapp" | "telegram" | "discord" | "reddit" | "twitch" | "threads")[] | null | undefined;
+            iconStyle?: "standard" | "no-border-black" | "no-border-white" | "origin-colorful" | "with-border-black" | "with-border-white" | "with-border-line-colorful" | "with-border-line-black" | "with-border-line-white" | null | undefined;
+            iconSize?: number | null | undefined;
         } | null | undefined;
     }>;
 }>, any>>;

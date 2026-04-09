@@ -65,15 +65,6 @@ declare const ColumnsContainerPropsSchema: z.ZodObject<{
         contentAlignment?: "bottom" | "top" | "stretch" | "middle" | null | undefined;
     }>>>;
 }, "strip", z.ZodTypeAny, {
-    props?: {
-        columns: {
-            childrenIds: string[];
-        }[];
-        columnsCount?: number | null | undefined;
-        fixedWidths?: [number | null | undefined, number | null | undefined, number | null | undefined, number | null | undefined] | null | undefined;
-        columnsGap?: number | null | undefined;
-        contentAlignment?: "bottom" | "top" | "stretch" | "middle" | null | undefined;
-    } | null | undefined;
     style?: {
         backgroundColor?: string | null | undefined;
         padding?: {
@@ -82,17 +73,17 @@ declare const ColumnsContainerPropsSchema: z.ZodObject<{
             right: number;
             left: number;
         } | null | undefined;
+    } | null | undefined;
+    props?: {
+        columns: {
+            childrenIds: string[];
+        }[];
+        columnsCount?: number | null | undefined;
+        fixedWidths?: [number | null | undefined, number | null | undefined, number | null | undefined, number | null | undefined] | null | undefined;
+        columnsGap?: number | null | undefined;
+        contentAlignment?: "bottom" | "top" | "stretch" | "middle" | null | undefined;
     } | null | undefined;
 }, {
-    props?: {
-        columns: {
-            childrenIds: string[];
-        }[];
-        columnsCount?: number | null | undefined;
-        fixedWidths?: [number | null | undefined, number | null | undefined, number | null | undefined, number | null | undefined] | null | undefined;
-        columnsGap?: number | null | undefined;
-        contentAlignment?: "bottom" | "top" | "stretch" | "middle" | null | undefined;
-    } | null | undefined;
     style?: {
         backgroundColor?: string | null | undefined;
         padding?: {
@@ -101,6 +92,15 @@ declare const ColumnsContainerPropsSchema: z.ZodObject<{
             right: number;
             left: number;
         } | null | undefined;
+    } | null | undefined;
+    props?: {
+        columns: {
+            childrenIds: string[];
+        }[];
+        columnsCount?: number | null | undefined;
+        fixedWidths?: [number | null | undefined, number | null | undefined, number | null | undefined, number | null | undefined] | null | undefined;
+        columnsGap?: number | null | undefined;
+        contentAlignment?: "bottom" | "top" | "stretch" | "middle" | null | undefined;
     } | null | undefined;
 }>;
 export type ColumnsContainerProps = z.infer<typeof ColumnsContainerPropsSchema>;

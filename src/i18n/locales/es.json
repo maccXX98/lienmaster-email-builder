@@ -19,7 +19,11 @@
     "undo": "Deshacer",
     "undoTooltip": "Deshacer (Ctrl/Cmd + Z)",
     "redo": "Rehacer",
-    "redoTooltip": "Rehacer (Ctrl/Cmd + Shift + Z)"
+    "redoTooltip": "Rehacer (Ctrl/Cmd + Shift + Z)",
+    "language": "Idioma",
+    "screenSize": "Tamaño de pantalla",
+    "share": "Compartir plantilla actual",
+    "shareSuccess": "La URL fue actualizada. Cópiala para compartir tu plantilla actual."
   },
   "samples": {
     "quickStart": "Inicio Rápido",

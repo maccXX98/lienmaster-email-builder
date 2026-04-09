@@ -49,9 +49,6 @@ declare const ContainerPropsSchema: z.ZodObject<{
         childrenIds?: string[] | null | undefined;
     }>>>;
 }, "strip", z.ZodTypeAny, {
-    props?: {
-        childrenIds?: string[] | null | undefined;
-    } | null | undefined;
     style?: {
         backgroundColor?: string | null | undefined;
         borderColor?: string | null | undefined;
@@ -62,11 +59,11 @@ declare const ContainerPropsSchema: z.ZodObject<{
             right: number;
             left: number;
         } | null | undefined;
+    } | null | undefined;
+    props?: {
+        childrenIds?: string[] | null | undefined;
     } | null | undefined;
 }, {
-    props?: {
-        childrenIds?: string[] | null | undefined;
-    } | null | undefined;
     style?: {
         backgroundColor?: string | null | undefined;
         borderColor?: string | null | undefined;
@@ -77,6 +74,9 @@ declare const ContainerPropsSchema: z.ZodObject<{
             right: number;
             left: number;
         } | null | undefined;
+    } | null | undefined;
+    props?: {
+        childrenIds?: string[] | null | undefined;
     } | null | undefined;
 }>;
 export default ContainerPropsSchema;

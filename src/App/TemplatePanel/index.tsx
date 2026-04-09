@@ -21,6 +21,7 @@ import DownloadJson from './DownloadJson';
 import HtmlPanel from './HtmlPanel';
 import ImportJson from './ImportJson';
 import JsonPanel from './JsonPanel';
+import LanguageSwitcher from '../LanguageSwitcher';
 import MainTabsGroup from './MainTabsGroup';
 import NameInput from './NameInput';
 import RedoButton from './RedoButton';
@@ -115,13 +116,20 @@ export default function TemplatePanel() {
             <MainTabsGroup />
           </Stack>
           <Stack direction="row" spacing={2} alignItems="center">
+            <LanguageSwitcher />
             <UndoButton />
             <RedoButton />
             {showJsonFeatures && <DownloadJson />}
             {showJsonFeatures && <ImportJson />}
             {/* <SaveButton />
             <SaveAndExitButton /> */}
-            <ToggleButtonGroup size="small" value={screenSizeValue} exclusive onChange={handleScreenSizeChange}>
+            <ToggleButtonGroup
+              size="small"
+              value={screenSizeValue}
+              exclusive
+              onChange={handleScreenSizeChange}
+              aria-label={t('common.screenSize')}
+            >
               <Tooltip title={t('common.desktopView')} arrow>
                 <ToggleButton value="desktop" sx={screenSizeValue === 'desktop' ? selectedSx : undefined}>
                   <MonitorOutlined fontSize="small" />

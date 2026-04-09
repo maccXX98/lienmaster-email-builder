@@ -40,7 +40,7 @@ function copyDir(src, dest) {
 }
 
 function main() {
-  console.log('📦 Copying monto-email-builder dist to frontend...\n');
+  console.log('📦 Copying lienmaster-email-builder dist to frontend...\n');
   console.log('Source:', distPath);
   console.log('Destination:', frontendPath);
 

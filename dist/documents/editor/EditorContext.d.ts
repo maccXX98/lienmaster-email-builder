@@ -45,7 +45,7 @@ declare const editorStateStore: import("zustand").UseBoundStore<import("zustand"
 export declare function useDocument(): TEditorConfiguration;
 export declare function useSelectedBlockId(): string | null;
 export declare function useSelectedScreenSize(): "desktop" | "mobile";
-export declare function useSelectedMainTab(): "preview" | "html" | "editor" | "json";
+export declare function useSelectedMainTab(): "html" | "preview" | "editor" | "json";
 export declare function setSelectedMainTab(selectedMainTab: TValue['selectedMainTab']): void;
 export declare function useSelectedSidebarTab(): "styles" | "block-configuration";
 export declare function useInspectorDrawerOpen(): boolean;

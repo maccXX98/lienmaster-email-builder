@@ -5,7 +5,7 @@ import { renderToStaticMarkup } from 'monto-email-core';
 import { TEditorConfiguration } from './core';
 import { HistoryManager } from './HistoryManager';
 
-import { getLanguage, Language, setLanguage as setI18nLanguage } from '../../i18n';
+import { getLanguage, Language } from '../../i18n';
 
 export type TextSelectionRange = { blockId: string; start: number; end: number };
 
@@ -108,8 +108,7 @@ export function initializeStore(config?: { document?: TEditorConfiguration; lang
     samplesDrawerOpen: true,
   });
 
-  // 同步更新 i18n（保持外部 props 与内部语言一致）
-  setI18nLanguage(lang);
+  // NOTA: El side effect de i18n se maneja externamente (ver EmailBuilder)
 }
 
 import EMPTY_EMAIL_MESSAGE from '../../getConfiguration/sample/empty-email-message';
@@ -347,7 +346,7 @@ export function useLanguage() {
 }
 
 export function setLanguage(lang: Language) {
-  setI18nLanguage(lang);
+  // Solo actualiza el store - el side effect de i18n se maneja externamente
   return editorStateStore.setState({ language: lang });
 }
 

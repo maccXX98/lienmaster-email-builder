@@ -216,9 +216,11 @@ function MyComponent() {
 - ✅ 支持多种邮件块类型（文本、图片、按钮、容器等）
 - ✅ 实时预览
 - ✅ 导出 HTML 和 JSON
-- ✅ 国际化支持（中文/英文）
+- ✅ 国际化支持（中文/英文/西班牙语）
+- ✅ LanguageSwitcher en la navbar para cambio de idioma
 - ✅ 图片上传支持
 - ✅ 完全可定制
+- ✅ Accesibilidad mejorada (ARIA labels, roles semánticos)
 
 ## 开发
 

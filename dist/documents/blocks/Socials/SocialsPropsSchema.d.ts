@@ -19,21 +19,21 @@ declare const SocialsPropsSchema: z.ZodObject<{
             url?: string | null | undefined;
         }>, "many">>>;
     }, "strip", z.ZodTypeAny, {
-        platforms?: ("x" | "facebook" | "instagram" | "linkedin" | "youtube" | "tiktok" | "snapchat" | "whatsapp" | "telegram" | "discord" | "reddit" | "twitch" | "threads")[] | null | undefined;
-        iconStyle?: "standard" | "no-border-black" | "no-border-white" | "origin-colorful" | "with-border-black" | "with-border-white" | "with-border-line-colorful" | "with-border-line-black" | "with-border-line-white" | null | undefined;
-        iconSize?: number | null | undefined;
         socials?: {
             platform: "x" | "facebook" | "instagram" | "linkedin" | "youtube" | "tiktok" | "snapchat" | "whatsapp" | "telegram" | "discord" | "reddit" | "twitch" | "threads";
             url?: string | null | undefined;
         }[] | null | undefined;
+        platforms?: ("x" | "facebook" | "instagram" | "linkedin" | "youtube" | "tiktok" | "snapchat" | "whatsapp" | "telegram" | "discord" | "reddit" | "twitch" | "threads")[] | null | undefined;
+        iconStyle?: "standard" | "no-border-black" | "no-border-white" | "origin-colorful" | "with-border-black" | "with-border-white" | "with-border-line-colorful" | "with-border-line-black" | "with-border-line-white" | null | undefined;
+        iconSize?: number | null | undefined;
     }, {
-        platforms?: ("x" | "facebook" | "instagram" | "linkedin" | "youtube" | "tiktok" | "snapchat" | "whatsapp" | "telegram" | "discord" | "reddit" | "twitch" | "threads")[] | null | undefined;
-        iconStyle?: "standard" | "no-border-black" | "no-border-white" | "origin-colorful" | "with-border-black" | "with-border-white" | "with-border-line-colorful" | "with-border-line-black" | "with-border-line-white" | null | undefined;
-        iconSize?: number | null | undefined;
         socials?: {
             platform: "x" | "facebook" | "instagram" | "linkedin" | "youtube" | "tiktok" | "snapchat" | "whatsapp" | "telegram" | "discord" | "reddit" | "twitch" | "threads";
             url?: string | null | undefined;
         }[] | null | undefined;
+        platforms?: ("x" | "facebook" | "instagram" | "linkedin" | "youtube" | "tiktok" | "snapchat" | "whatsapp" | "telegram" | "discord" | "reddit" | "twitch" | "threads")[] | null | undefined;
+        iconStyle?: "standard" | "no-border-black" | "no-border-white" | "origin-colorful" | "with-border-black" | "with-border-white" | "with-border-line-colorful" | "with-border-line-black" | "with-border-line-white" | null | undefined;
+        iconSize?: number | null | undefined;
     }>>>;
     style: z.ZodNullable<z.ZodOptional<z.ZodObject<{
         padding: z.ZodNullable<z.ZodOptional<z.ZodObject<{
@@ -74,15 +74,6 @@ declare const SocialsPropsSchema: z.ZodObject<{
         } | null | undefined;
     }>>>;
 }, "strip", z.ZodTypeAny, {
-    props?: {
-        platforms?: ("x" | "facebook" | "instagram" | "linkedin" | "youtube" | "tiktok" | "snapchat" | "whatsapp" | "telegram" | "discord" | "reddit" | "twitch" | "threads")[] | null | undefined;
-        iconStyle?: "standard" | "no-border-black" | "no-border-white" | "origin-colorful" | "with-border-black" | "with-border-white" | "with-border-line-colorful" | "with-border-line-black" | "with-border-line-white" | null | undefined;
-        iconSize?: number | null | undefined;
-        socials?: {
-            platform: "x" | "facebook" | "instagram" | "linkedin" | "youtube" | "tiktok" | "snapchat" | "whatsapp" | "telegram" | "discord" | "reddit" | "twitch" | "threads";
-            url?: string | null | undefined;
-        }[] | null | undefined;
-    } | null | undefined;
     style?: {
         backgroundColor?: string | null | undefined;
         textAlign?: "left" | "right" | "center" | null | undefined;
@@ -92,17 +83,17 @@ declare const SocialsPropsSchema: z.ZodObject<{
             right: number;
             top: number;
         } | null | undefined;
+    } | null | undefined;
+    props?: {
+        socials?: {
+            platform: "x" | "facebook" | "instagram" | "linkedin" | "youtube" | "tiktok" | "snapchat" | "whatsapp" | "telegram" | "discord" | "reddit" | "twitch" | "threads";
+            url?: string | null | undefined;
+        }[] | null | undefined;
+        platforms?: ("x" | "facebook" | "instagram" | "linkedin" | "youtube" | "tiktok" | "snapchat" | "whatsapp" | "telegram" | "discord" | "reddit" | "twitch" | "threads")[] | null | undefined;
+        iconStyle?: "standard" | "no-border-black" | "no-border-white" | "origin-colorful" | "with-border-black" | "with-border-white" | "with-border-line-colorful" | "with-border-line-black" | "with-border-line-white" | null | undefined;
+        iconSize?: number | null | undefined;
     } | null | undefined;
 }, {
-    props?: {
-        platforms?: ("x" | "facebook" | "instagram" | "linkedin" | "youtube" | "tiktok" | "snapchat" | "whatsapp" | "telegram" | "discord" | "reddit" | "twitch" | "threads")[] | null | undefined;
-        iconStyle?: "standard" | "no-border-black" | "no-border-white" | "origin-colorful" | "with-border-black" | "with-border-white" | "with-border-line-colorful" | "with-border-line-black" | "with-border-line-white" | null | undefined;
-        iconSize?: number | null | undefined;
-        socials?: {
-            platform: "x" | "facebook" | "instagram" | "linkedin" | "youtube" | "tiktok" | "snapchat" | "whatsapp" | "telegram" | "discord" | "reddit" | "twitch" | "threads";
-            url?: string | null | undefined;
-        }[] | null | undefined;
-    } | null | undefined;
     style?: {
         backgroundColor?: string | null | undefined;
         textAlign?: "left" | "right" | "center" | null | undefined;
@@ -112,6 +103,15 @@ declare const SocialsPropsSchema: z.ZodObject<{
             right: number;
             top: number;
         } | null | undefined;
+    } | null | undefined;
+    props?: {
+        socials?: {
+            platform: "x" | "facebook" | "instagram" | "linkedin" | "youtube" | "tiktok" | "snapchat" | "whatsapp" | "telegram" | "discord" | "reddit" | "twitch" | "threads";
+            url?: string | null | undefined;
+        }[] | null | undefined;
+        platforms?: ("x" | "facebook" | "instagram" | "linkedin" | "youtube" | "tiktok" | "snapchat" | "whatsapp" | "telegram" | "discord" | "reddit" | "twitch" | "threads")[] | null | undefined;
+        iconStyle?: "standard" | "no-border-black" | "no-border-white" | "origin-colorful" | "with-border-black" | "with-border-white" | "with-border-line-colorful" | "with-border-line-black" | "with-border-line-white" | null | undefined;
+        iconSize?: number | null | undefined;
     } | null | undefined;
 }>;
 export default SocialsPropsSchema;

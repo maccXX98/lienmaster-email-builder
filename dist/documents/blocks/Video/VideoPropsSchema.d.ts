@@ -15,22 +15,22 @@ declare const VideoPropsSchema: z.ZodObject<{
         height?: string | null | undefined;
         width?: string | null | undefined;
         url?: string | null | undefined;
-        alt?: string | null | undefined;
         autoplay?: boolean | null | undefined;
         controls?: boolean | null | undefined;
         loop?: boolean | null | undefined;
         muted?: boolean | null | undefined;
+        alt?: string | null | undefined;
         contentAlignment?: "bottom" | "top" | "middle" | null | undefined;
         linkHref?: string | null | undefined;
     }, {
         height?: string | null | undefined;
         width?: string | null | undefined;
         url?: string | null | undefined;
-        alt?: string | null | undefined;
         autoplay?: boolean | null | undefined;
         controls?: boolean | null | undefined;
         loop?: boolean | null | undefined;
         muted?: boolean | null | undefined;
+        alt?: string | null | undefined;
         contentAlignment?: "bottom" | "top" | "middle" | null | undefined;
         linkHref?: string | null | undefined;
     }>>>;
@@ -73,18 +73,6 @@ declare const VideoPropsSchema: z.ZodObject<{
         } | null | undefined;
     }>>>;
 }, "strip", z.ZodTypeAny, {
-    props?: {
-        height?: string | null | undefined;
-        width?: string | null | undefined;
-        url?: string | null | undefined;
-        alt?: string | null | undefined;
-        autoplay?: boolean | null | undefined;
-        controls?: boolean | null | undefined;
-        loop?: boolean | null | undefined;
-        muted?: boolean | null | undefined;
-        contentAlignment?: "bottom" | "top" | "middle" | null | undefined;
-        linkHref?: string | null | undefined;
-    } | null | undefined;
     style?: {
         backgroundColor?: string | null | undefined;
         textAlign?: "left" | "right" | "center" | null | undefined;
@@ -94,20 +82,20 @@ declare const VideoPropsSchema: z.ZodObject<{
             right: number;
             top: number;
         } | null | undefined;
+    } | null | undefined;
+    props?: {
+        height?: string | null | undefined;
+        width?: string | null | undefined;
+        url?: string | null | undefined;
+        autoplay?: boolean | null | undefined;
+        controls?: boolean | null | undefined;
+        loop?: boolean | null | undefined;
+        muted?: boolean | null | undefined;
+        alt?: string | null | undefined;
+        contentAlignment?: "bottom" | "top" | "middle" | null | undefined;
+        linkHref?: string | null | undefined;
     } | null | undefined;
 }, {
-    props?: {
-        height?: string | null | undefined;
-        width?: string | null | undefined;
-        url?: string | null | undefined;
-        alt?: string | null | undefined;
-        autoplay?: boolean | null | undefined;
-        controls?: boolean | null | undefined;
-        loop?: boolean | null | undefined;
-        muted?: boolean | null | undefined;
-        contentAlignment?: "bottom" | "top" | "middle" | null | undefined;
-        linkHref?: string | null | undefined;
-    } | null | undefined;
     style?: {
         backgroundColor?: string | null | undefined;
         textAlign?: "left" | "right" | "center" | null | undefined;
@@ -117,6 +105,18 @@ declare const VideoPropsSchema: z.ZodObject<{
             right: number;
             top: number;
         } | null | undefined;
+    } | null | undefined;
+    props?: {
+        height?: string | null | undefined;
+        width?: string | null | undefined;
+        url?: string | null | undefined;
+        autoplay?: boolean | null | undefined;
+        controls?: boolean | null | undefined;
+        loop?: boolean | null | undefined;
+        muted?: boolean | null | undefined;
+        alt?: string | null | undefined;
+        contentAlignment?: "bottom" | "top" | "middle" | null | undefined;
+        linkHref?: string | null | undefined;
     } | null | undefined;
 }>;
 export default VideoPropsSchema;

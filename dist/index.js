@@ -3,10 +3,12 @@ import React, { Fragment, createContext, forwardRef, memo, useCallback, useConte
 import { Alert, Box, Button, ButtonBase, Checkbox, CircularProgress, CssBaseline, Dialog, DialogActions, DialogContent, DialogTitle, Divider, Drawer, Fade, FormControlLabel, IconButton, InputLabel, Menu, MenuItem, Paper, Popover, Select, Slider, Stack, Switch, Tab, Tabs, TextField, ThemeProvider, ToggleButton, ToggleButtonGroup, Tooltip, Typography, useTheme } from "@mui/material";
 import { Reader, renderToStaticMarkup } from "monto-email-core";
 import { create } from "zustand";
+import i18n from "i18next";
+import { initReactI18next, useTranslation, useTranslation as useI18nextTranslation } from "react-i18next";
 import { Fragment as Fragment$1, jsx, jsxs } from "react/jsx-runtime";
 import { alpha, createTheme, darken, lighten } from "@mui/material/styles";
 import { Button as Button$1, ButtonPropsDefaults, ButtonPropsSchema } from "monto-email-block-button";
-import { Add, AddOutlined, AlignHorizontalLeftOutlined, AlignHorizontalRightOutlined, AlignVerticalBottomOutlined, AlignVerticalTopOutlined, AppRegistrationOutlined, ArrowDownwardOutlined, ArrowUpwardOutlined, AspectRatioOutlined, Check, CloseOutlined, CloudUploadOutlined, CodeOutlined, ContentCopyOutlined, Crop32Outlined, DataObjectOutlined, DeleteOutline, DeleteOutlined, DragIndicator, EditOutlined, FileDownloadOutlined, FileUploadOutlined, FirstPageOutlined, FormatAlignCenterOutlined, FormatAlignLeftOutlined, FormatAlignRightOutlined, HMobiledataOutlined, HeightOutlined, HorizontalRuleOutlined, HtmlOutlined, ImageOutlined, LastPageOutlined, LibraryAddOutlined, LinkOutlined, MenuOutlined, MonitorOutlined, NotesOutlined, PhoneIphoneOutlined, PreviewOutlined, RedoOutlined, RoundedCornerOutlined, ShareOutlined, SmartButtonOutlined, SpaceBarOutlined, TextFieldsOutlined, TitleOutlined, UndoOutlined, UnfoldMoreOutlined, VerticalAlignBottomOutlined, VerticalAlignCenterOutlined, VerticalAlignTopOutlined, VideocamOutlined, ViewColumnOutlined } from "@mui/icons-material";
+import { Add, AddOutlined, AlignHorizontalLeftOutlined, AlignHorizontalRightOutlined, AlignVerticalBottomOutlined, AlignVerticalTopOutlined, AppRegistrationOutlined, ArrowDownwardOutlined, ArrowUpwardOutlined, AspectRatioOutlined, Check, CloseOutlined, CloudUploadOutlined, CodeOutlined, ContentCopyOutlined, Crop32Outlined, DataObjectOutlined, DeleteOutline, DeleteOutlined, DragIndicator, EditOutlined, FileDownloadOutlined, FileUploadOutlined, FirstPageOutlined, FormatAlignCenterOutlined, FormatAlignLeftOutlined, FormatAlignRightOutlined, HMobiledataOutlined, HeightOutlined, HorizontalRuleOutlined, HtmlOutlined, ImageOutlined, LanguageOutlined, LastPageOutlined, LibraryAddOutlined, LinkOutlined, MenuOutlined, MonitorOutlined, NotesOutlined, PhoneIphoneOutlined, PreviewOutlined, RedoOutlined, RoundedCornerOutlined, ShareOutlined, SmartButtonOutlined, SpaceBarOutlined, TextFieldsOutlined, TitleOutlined, UndoOutlined, UnfoldMoreOutlined, VerticalAlignBottomOutlined, VerticalAlignCenterOutlined, VerticalAlignTopOutlined, VideocamOutlined, ViewColumnOutlined } from "@mui/icons-material";
 import { HexColorInput, HexColorPicker } from "react-colorful";
 import FormatBoldOutlined from "@mui/icons-material/FormatBoldOutlined";
 import FormatItalicOutlined from "@mui/icons-material/FormatItalicOutlined";
@@ -114,8 +116,8 @@ var HistoryManager = class {
 };
 //#endregion
 //#region src/i18n/index.ts
-var translations = {
-	en: {
+var resources = {
+	en: { translation: {
 		common: {
 			"newDocument": "New Blank Document",
 			"useBuiltInTemplates": "Use Built-in Templates",
@@ -136,7 +138,11 @@ var translations = {
 			"undo": "Undo",
 			"undoTooltip": "Undo (Ctrl/Cmd + Z)",
 			"redo": "Redo",
-			"redoTooltip": "Redo (Ctrl/Cmd + Shift + Z)"
+			"redoTooltip": "Redo (Ctrl/Cmd + Shift + Z)",
+			"language": "Language",
+			"screenSize": "Screen size",
+			"share": "Share current template",
+			"shareSuccess": "The URL was updated. Copy it to share your current template."
 		},
 		samples: {
 			"quickStart": "Quick Start",
@@ -371,8 +377,8 @@ var translations = {
 				"mobileView": "Mobile view"
 			}
 		}
-	},
-	es: {
+	} },
+	es: { translation: {
 		common: {
 			"newDocument": "Nuevo Documento en Blanco",
 			"useBuiltInTemplates": "Usar Plantillas Predefinidas",
@@ -393,7 +399,11 @@ var translations = {
 			"undo": "Deshacer",
 			"undoTooltip": "Deshacer (Ctrl/Cmd + Z)",
 			"redo": "Rehacer",
-			"redoTooltip": "Rehacer (Ctrl/Cmd + Shift + Z)"
+			"redoTooltip": "Rehacer (Ctrl/Cmd + Shift + Z)",
+			"language": "Idioma",
+			"screenSize": "Tamaño de pantalla",
+			"share": "Compartir plantilla actual",
+			"shareSuccess": "La URL fue actualizada. Cópiala para compartir tu plantilla actual."
 		},
 		samples: {
 			"quickStart": "Inicio Rápido",
@@ -628,42 +638,39 @@ var translations = {
 				"mobileView": "Vista Móvil"
 			}
 		}
-	}
+	} }
 };
-/**
-* 翻译函数
-* @param key 翻译键，支持嵌套路径，如 'common.emailBuilder'
-* @param params 替换参数，如 { id: '123' } 会替换 {{id}}
-* @param language 可选的语言参数，如果不提供则从 store 读取
-* @returns 翻译后的文本
-*/
-function t(key, params, language) {
-	const lang = language ?? getLanguage();
-	const keys = key.split(".");
-	let value = translations[lang];
-	for (const k of keys) if (value && typeof value === "object" && k in value) value = value[k];
-	else return key;
-	if (typeof value !== "string") return key;
-	if (params) return value.replace(/\{\{(\w+)\}\}/g, (match, paramKey) => {
-		return params[paramKey]?.toString() ?? match;
-	});
-	return value;
-}
-/**
-* 获取当前语言
-*/
-function getLanguage() {
+var detectBrowserLanguage = () => {
+	if (typeof window === "undefined") return "en";
+	return navigator.language.toLowerCase().startsWith("es") ? "es" : "en";
+};
+var getInitialLanguage = () => {
 	if (typeof window === "undefined") return "en";
 	const stored = localStorage.getItem("app-language");
-	if (stored && (stored === "en" || stored === "es")) return stored;
-	return navigator.language.toLowerCase().startsWith("es") ? "es" : "en";
+	if (stored === "en" || stored === "es") return stored;
+	return detectBrowserLanguage();
+};
+i18n.use(initReactI18next).init({
+	resources,
+	lng: getInitialLanguage(),
+	fallbackLng: "en",
+	interpolation: { escapeValue: false },
+	react: { useSuspense: false }
+});
+/**
+* Legacy getLanguage - use useTranslation() hook instead
+* @deprecated Use i18n.language or useTranslation hook instead
+*/
+function getLanguage() {
+	return i18n.language;
 }
 /**
-* 设置语言（仅更新 localStorage）
+* Change language and persist to localStorage
 */
-function setLanguage$1(lang) {
-	if (typeof window !== "undefined") localStorage.setItem("app-language", lang);
-}
+var changeLanguage = (lang) => {
+	i18n.changeLanguage(lang);
+	localStorage.setItem("app-language", lang);
+};
 //#endregion
 //#region src/documents/editor/EditorContext.tsx
 var initialDocument = null;
@@ -694,7 +701,6 @@ function initializeStore(config) {
 		inspectorDrawerOpen: true,
 		samplesDrawerOpen: true
 	});
-	setLanguage$1(lang);
 }
 if (!historyManager) historyManager = new HistoryManager(initialDocument || EMPTY_EMAIL_MESSAGE);
 var editorStateStore = create((set, get) => ({
@@ -859,7 +865,6 @@ function useLanguage() {
 	return editorStateStore((s) => s.language);
 }
 function setLanguage(lang) {
-	setLanguage$1(lang);
 	return editorStateStore.setState({ language: lang });
 }
 function useName() {
@@ -1295,18 +1300,11 @@ var THEME = createTheme(BASE_THEME, {
 });
 //#endregion
 //#region src/i18n/useTranslation.ts
-/**
-* React Hook 用于翻译
-* 会自动从 zustand store 读取当前语言，语言改变时会自动重新渲染
-*/
-function useTranslation() {
-	const language = useLanguage();
-	const t$1 = (key, params) => {
-		return t(key, params, language);
-	};
+function useTranslation$1() {
+	const { t, i18n } = useTranslation();
 	return {
-		t: t$1,
-		language
+		t,
+		language: i18n.language
 	};
 }
 //#endregion
@@ -1841,7 +1839,7 @@ function FontSizeInput({ label, defaultValue, onChange }) {
 //#endregion
 //#region src/App/InspectorDrawer/ConfigurationPanel/input-panels/helpers/inputs/FontStyleInput.tsx
 function FontStyleInput({ label, defaultValue, onChange }) {
-	const { t } = useTranslation();
+	const { t } = useTranslation$1();
 	const normalized = defaultValue || "normal";
 	const [value, setValue] = useState(normalized);
 	useEffect(() => {
@@ -1868,7 +1866,7 @@ function FontStyleInput({ label, defaultValue, onChange }) {
 //#endregion
 //#region src/App/InspectorDrawer/ConfigurationPanel/input-panels/helpers/inputs/FontWeightInput.tsx
 function FontWeightInput({ label, defaultValue, onChange }) {
-	const { t } = useTranslation();
+	const { t } = useTranslation$1();
 	const normalized = defaultValue ?? "normal";
 	const [value, setValue] = useState(normalized);
 	useEffect(() => {
@@ -2086,7 +2084,7 @@ function TextAlignInput({ label, defaultValue, onChange }) {
 //#endregion
 //#region src/App/InspectorDrawer/ConfigurationPanel/input-panels/helpers/inputs/TextDecorationInput.tsx
 function TextDecorationInput({ label, defaultValue, onChange }) {
-	const { t } = useTranslation();
+	const { t } = useTranslation$1();
 	const normalized = defaultValue || "none";
 	const [value, setValue] = useState(normalized);
 	useEffect(() => {
@@ -2118,7 +2116,7 @@ function TextDecorationInput({ label, defaultValue, onChange }) {
 //#endregion
 //#region src/App/InspectorDrawer/ConfigurationPanel/input-panels/helpers/style-inputs/SingleStylePropertyPanel.tsx
 function SingleStylePropertyPanel({ name, value, onChange }) {
-	const { t } = useTranslation();
+	const { t } = useTranslation$1();
 	const defaultValue = value[name] ?? null;
 	const handleChange = (v) => {
 		onChange({
@@ -2211,7 +2209,7 @@ function hasFormatGroup(names) {
 	return FORMAT_GROUP_KEYS.every((k) => names.includes(k));
 }
 function MultiStylePropertyPanel({ names, value, onChange }) {
-	const { t } = useTranslation();
+	const { t } = useTranslation$1();
 	const showFormatGroup = hasFormatGroup(names);
 	return /* @__PURE__ */ jsx(Fragment$1, { children: names.map((name) => {
 		if (FORMAT_GROUP_KEYS.includes(name)) return null;
@@ -2240,7 +2238,7 @@ function MultiStylePropertyPanel({ names, value, onChange }) {
 //#endregion
 //#region src/App/InspectorDrawer/ConfigurationPanel/input-panels/ButtonSidebarPanel.tsx
 function ButtonSidebarPanel({ data, setData }) {
-	const { t } = useTranslation();
+	const { t } = useTranslation$1();
 	const [, setErrors] = useState(null);
 	const updateData = (d) => {
 		const res = ButtonPropsSchema.safeParse(d);
@@ -2401,7 +2399,7 @@ var ColumnsContainerPropsSchema$1 = z.object({
 //#endregion
 //#region src/App/InspectorDrawer/ConfigurationPanel/input-panels/ColumnsContainerSidebarPanel.tsx
 function ColumnsContainerPanel({ data, setData }) {
-	const { t } = useTranslation();
+	const { t } = useTranslation$1();
 	const document = useDocument();
 	const selectedBlockId = useSelectedBlockId();
 	const [, setErrors] = useState(null);
@@ -2772,7 +2770,7 @@ var ContainerPropsSchema$1 = z.object({
 //#endregion
 //#region src/App/InspectorDrawer/ConfigurationPanel/input-panels/ContainerSidebarPanel.tsx
 function ContainerSidebarPanel({ data, setData }) {
-	const { t } = useTranslation();
+	const { t } = useTranslation$1();
 	const [, setErrors] = useState(null);
 	const updateData = (d) => {
 		const res = ContainerPropsSchema$1.safeParse(d);
@@ -2801,7 +2799,7 @@ function ContainerSidebarPanel({ data, setData }) {
 //#endregion
 //#region src/App/InspectorDrawer/ConfigurationPanel/input-panels/DividerSidebarPanel.tsx
 function DividerSidebarPanel({ data, setData }) {
-	const { t } = useTranslation();
+	const { t } = useTranslation$1();
 	const [, setErrors] = useState(null);
 	const updateData = (d) => {
 		const res = DividerPropsSchema.safeParse(d);
@@ -2880,7 +2878,7 @@ var EmailLayoutPropsSchema = z.object({
 //#endregion
 //#region src/App/InspectorDrawer/ConfigurationPanel/input-panels/EmailLayoutSidebarPanel.tsx
 function EmailLayoutSidebarFields({ data, setData }) {
-	const { t } = useTranslation();
+	const { t } = useTranslation$1();
 	const [, setErrors] = useState(null);
 	const updateData = (d) => {
 		const res = EmailLayoutPropsSchema.safeParse(d);
@@ -2952,7 +2950,7 @@ function EmailLayoutSidebarFields({ data, setData }) {
 //#endregion
 //#region src/App/InspectorDrawer/ConfigurationPanel/input-panels/HeadingSidebarPanel.tsx
 function HeadingSidebarPanel({ data, setData }) {
-	const { t } = useTranslation();
+	const { t } = useTranslation$1();
 	const [, setErrors] = useState(null);
 	const updateData = (d) => {
 		const res = HeadingPropsSchema.safeParse(d);
@@ -3064,7 +3062,7 @@ function CodeMirrorInput({ label, value, onChange, height = "200px" }) {
 //#endregion
 //#region src/App/InspectorDrawer/ConfigurationPanel/input-panels/HtmlSidebarPanel.tsx
 function HtmlSidebarPanel({ data, setData }) {
-	const { t } = useTranslation();
+	const { t } = useTranslation$1();
 	const [, setErrors] = useState(null);
 	const updateData = (d) => {
 		const res = HtmlPropsSchema.safeParse(d);
@@ -3121,7 +3119,7 @@ function TextDimensionInput({ label, defaultValue, onChange }) {
 //#endregion
 //#region src/App/InspectorDrawer/ConfigurationPanel/input-panels/ImageSidebarPanel.tsx
 function ImageSidebarPanel({ data, setData }) {
-	const { t } = useTranslation();
+	const { t } = useTranslation$1();
 	const [, setErrors] = useState(null);
 	const [uploadMode, setUploadMode] = useState("url");
 	const [uploading, setUploading] = useState(false);
@@ -3373,7 +3371,7 @@ function BooleanInput({ label, defaultValue, onChange }) {
 //#endregion
 //#region src/App/InspectorDrawer/ConfigurationPanel/input-panels/VideoSidebarPanel.tsx
 function VideoSidebarPanel({ data, setData }) {
-	const { t } = useTranslation();
+	const { t } = useTranslation$1();
 	const [, setErrors] = useState(null);
 	const [uploadMode, setUploadMode] = useState("url");
 	const [uploading, setUploading] = useState(false);
@@ -3632,7 +3630,7 @@ function VideoSidebarPanel({ data, setData }) {
 //#endregion
 //#region src/App/InspectorDrawer/ConfigurationPanel/input-panels/SpacerSidebarPanel.tsx
 function SpacerSidebarPanel({ data, setData }) {
-	const { t } = useTranslation();
+	const { t } = useTranslation$1();
 	const [, setErrors] = useState(null);
 	const updateData = (d) => {
 		const res = SpacerPropsSchema.safeParse(d);
@@ -3699,7 +3697,7 @@ function getEffectiveStyleAtOffset(global, runs, offset) {
 	return s;
 }
 function TextSidebarPanel({ blockId, data, setData }) {
-	const { t } = useTranslation();
+	const { t } = useTranslation$1();
 	const [, setErrors] = useState(null);
 	const textSelection = useTextSelection();
 	const lastTextBlockContent = useLastTextBlockContent();
@@ -4240,7 +4238,7 @@ var ICON_STYLE_NAMES = {
 	}
 };
 function SocialsSidebarPanel({ data, setData }) {
-	const { t, language } = useTranslation();
+	const { t, language } = useTranslation$1();
 	const [, setErrors] = useState(null);
 	const [draggedIndex, setDraggedIndex] = useState(null);
 	const [dragOverIndex, setDragOverIndex] = useState(null);
@@ -4714,7 +4712,7 @@ function renderMessage(val) {
 	});
 }
 function ConfigurationPanel() {
-	const { t } = useTranslation();
+	const { t } = useTranslation$1();
 	const document = useDocument();
 	const selectedBlockId = useSelectedBlockId();
 	if (!selectedBlockId) return renderMessage(t("inspector.clickBlockToInspect"));
@@ -4827,7 +4825,7 @@ function StylesPanel() {
 	}, "root");
 }
 function InspectorDrawer() {
-	const { t } = useTranslation();
+	const { t } = useTranslation$1();
 	const selectedSidebarTab = useSelectedSidebarTab();
 	const inspectorDrawerOpen = useInspectorDrawerOpen();
 	const renderCurrentSidebarPanel = () => {
@@ -5277,7 +5275,7 @@ var getBlockI18nKey$1 = (blockType) => {
 	}[blockType] || blockType;
 };
 function BlocksGrid({ onSelect, disableContainerBlocks = false, containerType = null }) {
-	const { t } = useTranslation();
+	const { t } = useTranslation$1();
 	return /* @__PURE__ */ jsx(Box, {
 		sx: {
 			p: 1,
@@ -5310,7 +5308,7 @@ function generateId$3() {
 	return `block-${Date.now()}`;
 }
 function SamplesDrawer() {
-	const { t } = useTranslation();
+	const { t } = useTranslation$1();
 	const samplesDrawerOpen = useSamplesDrawerOpen();
 	const document = useDocument();
 	const showSamplesDrawerTitle = useShowSamplesDrawerTitle();
@@ -5537,7 +5535,7 @@ var getBlockI18nKey = (blockType) => {
 	}[blockType] || blockType;
 };
 function BlocksMenu({ anchorEl, setAnchorEl, onSelect, disableContainerBlocks = false, containerType = null }) {
-	const { t } = useTranslation();
+	const { t } = useTranslation$1();
 	const onClose = () => {
 		setAnchorEl(null);
 	};
@@ -7360,7 +7358,7 @@ function EmailLayoutEditor(props) {
 //#endregion
 //#region src/documents/blocks/Image/ImageEditor.tsx
 function ImageEditor(props) {
-	const { t } = useTranslation();
+	const { t } = useTranslation$1();
 	const blockId = useCurrentBlockId();
 	const imageUploadHandler = useImageUploadHandler();
 	const [uploadMode, setUploadMode] = useState("url");
@@ -7542,7 +7540,7 @@ function ImageEditor(props) {
 //#endregion
 //#region src/documents/blocks/Video/VideoEditor.tsx
 function VideoEditor(props) {
-	const { t } = useTranslation();
+	const { t } = useTranslation$1();
 	const blockId = useCurrentBlockId();
 	const videoUploadHandler = useVideoUploadHandler();
 	const [uploadMode, setUploadMode] = useState("url");
@@ -7727,7 +7725,7 @@ function VideoEditor(props) {
 //#endregion
 //#region src/documents/blocks/Socials/SocialsEditor.tsx
 function SocialsEditor(props) {
-	const { t } = useTranslation();
+	const { t } = useTranslation$1();
 	const socials = props.props?.socials || [];
 	const platforms = props.props?.platforms || [];
 	if ((socials.length > 0 ? socials.map((s) => s.platform) : platforms).length === 0) return /* @__PURE__ */ jsx(Box, {
@@ -8932,7 +8930,7 @@ function ToggleSamplesPanelButton() {
 //#endregion
 //#region src/App/TemplatePanel/DownloadJson/index.tsx
 function DownloadJson() {
-	const { t } = useTranslation();
+	const { t } = useTranslation$1();
 	const doc = useDocument();
 	const href = useMemo(() => {
 		return `data:text/plain,${encodeURIComponent(JSON.stringify(doc, null, "  "))}`;
@@ -9172,7 +9170,7 @@ function validateTextAreaValue(value) {
 //#endregion
 //#region src/App/TemplatePanel/ImportJson/ImportJsonDialog.tsx
 function ImportJsonDialog({ onClose }) {
-	const { t } = useTranslation();
+	const { t } = useTranslation$1();
 	const [value, setValue] = useState("");
 	const [error, setError] = useState(null);
 	const handleChange = (ev) => {
@@ -9226,7 +9224,7 @@ function ImportJsonDialog({ onClose }) {
 //#endregion
 //#region src/App/TemplatePanel/ImportJson/index.tsx
 function ImportJson() {
-	const { t } = useTranslation();
+	const { t } = useTranslation$1();
 	const [open, setOpen] = useState(false);
 	let dialog = null;
 	if (open) dialog = /* @__PURE__ */ jsx(ImportJsonDialog, { onClose: () => setOpen(false) });
@@ -9250,9 +9248,62 @@ function JsonPanel() {
 	});
 }
 //#endregion
+//#region src/App/LanguageSwitcher/index.tsx
+function LanguageSwitcher() {
+	const { t, i18n } = useI18nextTranslation();
+	const [anchorEl, setAnchorEl] = React.useState(null);
+	const open = Boolean(anchorEl);
+	const currentLang = getLanguage();
+	const handleClick = (event) => {
+		setAnchorEl(event.currentTarget);
+	};
+	const handleClose = () => {
+		setAnchorEl(null);
+	};
+	const handleLanguageChange = (lang) => {
+		changeLanguage(lang);
+		setLanguage(lang);
+		handleClose();
+	};
+	return /* @__PURE__ */ jsxs(Fragment$1, { children: [/* @__PURE__ */ jsx(IconButton, {
+		onClick: handleClick,
+		size: "small",
+		sx: { color: "text.secondary" },
+		"aria-label": t("common.language"),
+		"aria-controls": open ? "language-menu" : void 0,
+		"aria-haspopup": "true",
+		"aria-expanded": open ? "true" : void 0,
+		children: /* @__PURE__ */ jsx(LanguageOutlined, { fontSize: "small" })
+	}), /* @__PURE__ */ jsxs(Menu, {
+		id: "language-menu",
+		anchorEl,
+		open,
+		onClose: handleClose,
+		anchorOrigin: {
+			vertical: "bottom",
+			horizontal: "right"
+		},
+		transformOrigin: {
+			vertical: "top",
+			horizontal: "right"
+		},
+		children: [/* @__PURE__ */ jsx(MenuItem, {
+			onClick: () => handleLanguageChange("es"),
+			selected: currentLang === "es",
+			lang: "es",
+			children: "Español"
+		}), /* @__PURE__ */ jsx(MenuItem, {
+			onClick: () => handleLanguageChange("en"),
+			selected: currentLang === "en",
+			lang: "en",
+			children: "English"
+		})]
+	})] });
+}
+//#endregion
 //#region src/App/TemplatePanel/MainTabsGroup.tsx
 function MainTabsGroup() {
-	const { t } = useTranslation();
+	const { t } = useTranslation$1();
 	const selectedMainTab = useSelectedMainTab();
 	const showJsonFeatures = useShowJsonFeatures();
 	const handleChange = (_, v) => {
@@ -9312,7 +9363,7 @@ function MainTabsGroup() {
 //#endregion
 //#region src/App/TemplatePanel/NameInput.tsx
 function NameInput() {
-	const { t } = useTranslation();
+	const { t } = useTranslation$1();
 	return /* @__PURE__ */ jsx(Typography, {
 		component: "span",
 		variant: "body2",
@@ -9333,7 +9384,7 @@ function NameInput() {
 //#endregion
 //#region src/App/TemplatePanel/RedoButton/index.tsx
 function RedoButton() {
-	const { t } = useTranslation();
+	const { t } = useTranslation$1();
 	const canRedo = useCanRedo();
 	return /* @__PURE__ */ jsx(Tooltip, {
 		title: t("common.redoTooltip"),
@@ -9350,7 +9401,7 @@ function RedoButton() {
 //#endregion
 //#region src/App/TemplatePanel/UndoButton/index.tsx
 function UndoButton() {
-	const { t } = useTranslation();
+	const { t } = useTranslation$1();
 	const canUndo = useCanUndo();
 	return /* @__PURE__ */ jsx(Tooltip, {
 		title: t("common.undoTooltip"),
@@ -9367,7 +9418,7 @@ function UndoButton() {
 //#endregion
 //#region src/App/TemplatePanel/index.tsx
 function TemplatePanel() {
-	const { t } = useTranslation();
+	const { t } = useTranslation$1();
 	const document = useDocument();
 	const selectedMainTab = useSelectedMainTab();
 	const selectedScreenSize = useSelectedScreenSize();
@@ -9454,6 +9505,7 @@ function TemplatePanel() {
 						spacing: 2,
 						alignItems: "center",
 						children: [
+							/* @__PURE__ */ jsx(LanguageSwitcher, {}),
 							/* @__PURE__ */ jsx(UndoButton, {}),
 							/* @__PURE__ */ jsx(RedoButton, {}),
 							showJsonFeatures && /* @__PURE__ */ jsx(DownloadJson, {}),
@@ -9463,6 +9515,7 @@ function TemplatePanel() {
 								value: screenSizeValue,
 								exclusive: true,
 								onChange: handleScreenSizeChange,
+								"aria-label": t("common.screenSize"),
 								children: [/* @__PURE__ */ jsx(Tooltip, {
 									title: t("common.desktopView"),
 									arrow: true,

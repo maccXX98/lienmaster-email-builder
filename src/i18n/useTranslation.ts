@@ -1,18 +1,8 @@
-import { useLanguage } from '../documents/editor/EditorContext';
+import { useTranslation as useI18nextTranslation } from 'react-i18next';
 
-import { t as tBase } from './index';
-
-/**
- * React Hook 用于翻译
- * 会自动从 zustand store 读取当前语言，语言改变时会自动重新渲染
- */
+// Re-export the useTranslation hook from react-i18next
+// This maintains backward compatibility with existing code
 export function useTranslation() {
-  const language = useLanguage();
-
-  const t = (key: string, params?: Record<string, string | number>): string => {
-    return tBase(key, params, language);
-  };
-
-  return { t, language };
+  const { t, i18n } = useI18nextTranslation();
+  return { t, language: i18n.language as 'en' | 'es' };
 }
-

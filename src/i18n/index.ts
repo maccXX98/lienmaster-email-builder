@@ -1,31 +1,71 @@
+import i18n from 'i18next';
+import { initReactI18next, useTranslation as useI18nextTranslation } from 'react-i18next';
+
 import en from './locales/en.json';
 import es from './locales/es.json';
 
 export type Language = 'en' | 'es';
 
-const translations: Record<Language, Record<string, any>> = {
+// react-i18next configuration
+export const resources = {
+  en: { translation: en },
+  es: { translation: es },
+} as const;
+
+// Detect browser language
+const detectBrowserLanguage = (): Language => {
+  if (typeof window === 'undefined') return 'en';
+  const browserLang = navigator.language.toLowerCase();
+  return browserLang.startsWith('es') ? 'es' : 'en';
+};
+
+// Get stored language or detect from browser
+const getInitialLanguage = (): Language => {
+  if (typeof window === 'undefined') return 'en';
+  const stored = localStorage.getItem('app-language') as Language | null;
+  if (stored === 'en' || stored === 'es') return stored;
+  return detectBrowserLanguage();
+};
+
+// Initialize i18next
+i18n.use(initReactI18next).init({
+  resources,
+  lng: getInitialLanguage(),
+  fallbackLng: 'en',
+  interpolation: {
+    escapeValue: false,
+  },
+  react: {
+    useSuspense: false,
+  },
+});
+
+export default i18n;
+
+// ============================================================
+// BACKWARD COMPATIBILITY LAYER
+// Kept for components that still use the old custom i18n API
+// New code should use useTranslation() hook from react-i18next
+// ============================================================
+
+const translations: Record<Language, Record<string, unknown>> = {
   en,
   es,
 };
 
 /**
- * 翻译函数
- * @param key 翻译键，支持嵌套路径，如 'common.emailBuilder'
- * @param params 替换参数，如 { id: '123' } 会替换 {{id}}
- * @param language 可选的语言参数，如果不提供则从 store 读取
- * @returns 翻译后的文本
+ * Legacy translation function - use useTranslation() hook instead
+ * @deprecated Use useTranslation from 'react-i18next' instead
  */
 export function t(key: string, params?: Record<string, string | number>, language?: Language): string {
-  // 如果没有传入 language，则使用默认的 getLanguage（用于非 React 组件中）
-  const lang = language ?? getLanguage();
+  const lang = language ?? i18n.language as Language;
   const keys = key.split('.');
-  let value: any = translations[lang];
+  let value: unknown = translations[lang];
 
   for (const k of keys) {
     if (value && typeof value === 'object' && k in value) {
-      value = value[k];
+      value = (value as Record<string, unknown>)[k];
     } else {
-      // 如果找不到翻译，返回 key 本身
       return key;
     }
   }
@@ -34,7 +74,6 @@ export function t(key: string, params?: Record<string, string | number>, languag
     return key;
   }
 
-  // 替换参数
   if (params) {
     return value.replace(/\{\{(\w+)\}\}/g, (match, paramKey) => {
       return params[paramKey]?.toString() ?? match;
@@ -45,28 +84,28 @@ export function t(key: string, params?: Record<string, string | number>, languag
 }
 
 /**
- * 获取当前语言
+ * Legacy getLanguage - use useTranslation() hook instead
+ * @deprecated Use i18n.language or useTranslation hook instead
  */
 export function getLanguage(): Language {
-  if (typeof window === 'undefined') {
-    return 'en';
-  }
-  // 从 localStorage 读取，如果没有则 usar navegador idioma
-  const stored = localStorage.getItem('app-language') as Language | null;
-  if (stored && (stored === 'en' || stored === 'es')) {
-    return stored;
-  }
-  // Detectar idioma del navegador
-  const browserLang = navigator.language.toLowerCase();
-  return browserLang.startsWith('es') ? 'es' : 'en';
+  return i18n.language as Language;
 }
 
 /**
- * 设置语言（仅更新 localStorage）
+ * Legacy setLanguage - use changeLanguage instead
+ * @deprecated Use changeLanguage from this module instead
  */
 export function setLanguage(lang: Language) {
-  if (typeof window !== 'undefined') {
-    localStorage.setItem('app-language', lang);
-  }
+  changeLanguage(lang);
 }
 
+/**
+ * Change language and persist to localStorage
+ */
+export const changeLanguage = (lang: Language) => {
+  i18n.changeLanguage(lang);
+  localStorage.setItem('app-language', lang);
+};
+
+// Re-export useTranslation hook for convenience
+export { useI18nextTranslation as useTranslation };
